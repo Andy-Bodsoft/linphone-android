@@ -20,17 +20,17 @@
 package org.linphone.activities.main.conference.viewmodels
 
 import android.Manifest
+import android.animation.ValueAnimator
 import androidx.lifecycle.MutableLiveData
 import org.linphone.LinphoneApplication.Companion.coreContext
+import org.linphone.LinphoneApplication.Companion.corePreferences
 import org.linphone.R
 import org.linphone.activities.main.viewmodels.MessageNotifierViewModel
 import org.linphone.activities.voip.ConferenceDisplayMode
 import org.linphone.core.*
 import org.linphone.core.tools.Log
-import org.linphone.utils.AudioRouteUtils
+import org.linphone.utils.*
 import org.linphone.utils.Event
-import org.linphone.utils.LinphoneUtils
-import org.linphone.utils.PermissionHelper
 
 class ConferenceWaitingRoomViewModel : MessageNotifierViewModel() {
     val subject = MutableLiveData<String>()
@@ -59,6 +59,8 @@ class ConferenceWaitingRoomViewModel : MessageNotifierViewModel() {
 
     val joinInProgress = MutableLiveData<Boolean>()
 
+    val networkReachable = MutableLiveData<Boolean>()
+
     val askPermissionEvent: MutableLiveData<Event<String>> by lazy {
         MutableLiveData<Event<String>>()
     }
@@ -73,6 +75,32 @@ class ConferenceWaitingRoomViewModel : MessageNotifierViewModel() {
 
     val leaveWaitingRoomEvent: MutableLiveData<Event<Boolean>> by lazy {
         MutableLiveData<Event<Boolean>>()
+    }
+
+    val networkNotReachableEvent: MutableLiveData<Event<Boolean>> by lazy {
+        MutableLiveData<Event<Boolean>>()
+    }
+
+    val audioRoutesMenuTranslateY = MutableLiveData<Float>()
+    private val audioRoutesMenuAnimator: ValueAnimator by lazy {
+        ValueAnimator.ofFloat(AppUtils.getDimension(R.dimen.voip_audio_routes_menu_translate_y), 0f).apply {
+            addUpdateListener {
+                val value = it.animatedValue as Float
+                audioRoutesMenuTranslateY.value = value
+            }
+            duration = if (corePreferences.enableAnimations) 500 else 0
+        }
+    }
+
+    val conferenceLayoutMenuTranslateY = MutableLiveData<Float>()
+    private val conferenceLayoutMenuAnimator: ValueAnimator by lazy {
+        ValueAnimator.ofFloat(AppUtils.getDimension(R.dimen.voip_audio_routes_menu_translate_y), 0f).apply {
+            addUpdateListener {
+                val value = it.animatedValue as Float
+                conferenceLayoutMenuTranslateY.value = value
+            }
+            duration = if (corePreferences.enableAnimations) 500 else 0
+        }
     }
 
     private val callParams: CallParams = coreContext.core.createCallParams(null)!!
@@ -112,11 +140,28 @@ class ConferenceWaitingRoomViewModel : MessageNotifierViewModel() {
                 leaveWaitingRoomEvent.value = Event(true)
             }
         }
+
+        override fun onNetworkReachable(core: Core, reachable: Boolean) {
+            Log.i("[Conference Waiting Room] Network reachability changed: [$reachable]")
+            networkReachable.value = reachable
+            if (!reachable) {
+                networkNotReachableEvent.value = Event(true)
+            }
+        }
     }
 
     init {
         val core = coreContext.core
         core.addListener(listener)
+
+        audioRoutesMenuTranslateY.value = AppUtils.getDimension(R.dimen.voip_audio_routes_menu_translate_y)
+        conferenceLayoutMenuTranslateY.value = AppUtils.getDimension(R.dimen.voip_audio_routes_menu_translate_y)
+
+        val reachable = core.isNetworkReachable
+        networkReachable.value = reachable
+        if (!reachable) {
+            networkNotReachableEvent.value = Event(true)
+        }
 
         callParams.isMicEnabled = PermissionHelper.get().hasRecordAudioPermission() && coreContext.core.isMicEnabled
         Log.i("[Conference Waiting Room] Microphone will be ${if (callParams.isMicEnabled) "enabled" else "muted"}")
@@ -197,6 +242,11 @@ class ConferenceWaitingRoomViewModel : MessageNotifierViewModel() {
 
     fun toggleAudioRoutesMenu() {
         audioRoutesSelected.value = audioRoutesSelected.value != true
+        if (audioRoutesSelected.value == true) {
+            audioRoutesMenuAnimator.start()
+        } else {
+            audioRoutesMenuAnimator.reverse()
+        }
     }
 
     fun setBluetoothAudioRoute() {
@@ -234,6 +284,11 @@ class ConferenceWaitingRoomViewModel : MessageNotifierViewModel() {
 
     fun toggleLayoutMenu() {
         layoutMenuSelected.value = layoutMenuSelected.value != true
+        if (layoutMenuSelected.value == true) {
+            conferenceLayoutMenuAnimator.start()
+        } else {
+            conferenceLayoutMenuAnimator.reverse()
+        }
     }
 
     fun setMosaicLayout() {

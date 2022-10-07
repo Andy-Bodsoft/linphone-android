@@ -17,12 +17,14 @@ Group changes to describe their impact on the project, as follows:
 - Conference creation with scheduling, video, different layouts, showing who is speaking and who is muted, etc...
 - Group calls directly from group chat rooms
 - Chat rooms can be individually muted (no notification when receiving a chat message)
+- When a message is received wait a short amount of time to check if more are to be received to notify them all at once
 - Outgoing call video in early-media if requested by callee
 - Image & Video in-app viewers allow for full-screen display
 - Display name can be set during assistant when creating / logging in a sip.linphone.org account
 - Android 13 support, using new post notifications & media permissions
 - Call recordings can be exported
 - Setting to prevent international prefix from account to be applied to call & chat
+- Themed app icon is now supported for Android 13+
 
 ### Changed
 - In-call views have been re-designed
@@ -30,7 +32,7 @@ Group changes to describe their impact on the project, as follows:
 - Improved how contact avatars are generated
 - 3-dots menu even for basic chat rooms with more options
 - Phone numbers & email addresses are now clickable links in chat messages
-- Go to call activity when there is at least one active call and you click on launcher icon
+- Go to call activity when you click on launcher icon if there is at least one active call
 
 ### Fixed
 - Multiple file download attempt from the same chat bubble at the same time needed app restart to properly download each file
@@ -44,6 +46,22 @@ Group changes to describe their impact on the project, as follows:
 - Trying to keep the preferred driver (OpenSLES / AAudio) when switching device
 - Issues when storing presence in native contacts + potentially duplicated SIP addresses in contact details
 - Chat room scroll position lost when going into sub-view
+- No longer makes requests to our LIME server (end-to-end encryption keys server) for non sip.linphone.org accounts
+- Fixed incoming call/notification not ringing if Do not Disturb mode is enabled except for favorite contacts
+
+## [4.6.14] - 2022-09-19
+
+### Fixed
+- ANR that happens sometimes when playing voice recording
+
+### Changed
+- Improved contact loader by querying only relevant fields
+
+## [4.6.13] - 2022-08-25
+
+### Fixed
+- Disable Telecom Manager feature on Android < 10 to prevent crash due to Android 9 OS bug
+- Fixed crash due to AAudio's waitForStateChange (SDK fix)
 
 ## [4.6.12] - 2022-07-29
 

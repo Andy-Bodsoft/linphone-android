@@ -39,7 +39,7 @@ class ChatRoomsListViewModel : MessageNotifierViewModel() {
 
     val forwardPending = MutableLiveData<Boolean>()
 
-    val groupChatAvailable: Boolean = LinphoneUtils.isGroupChatAvailable()
+    val groupChatAvailable = MutableLiveData<Boolean>()
 
     val chatRoomIndexUpdatedEvent: MutableLiveData<Event<Int>> by lazy {
         MutableLiveData<Event<Int>>()
@@ -56,19 +56,15 @@ class ChatRoomsListViewModel : MessageNotifierViewModel() {
         }
 
         override fun onMessageSent(core: Core, chatRoom: ChatRoom, message: ChatMessage) {
-            when (findChatRoomIndex(chatRoom)) {
-                -1 -> updateChatRooms()
-                0 -> chatRoomIndexUpdatedEvent.value = Event(0)
-                else -> reorderChatRooms()
-            }
+            onChatRoomMessageEvent(chatRoom)
         }
 
-        override fun onMessageReceived(core: Core, chatRoom: ChatRoom, message: ChatMessage) {
-            when (findChatRoomIndex(chatRoom)) {
-                -1 -> updateChatRooms()
-                0 -> chatRoomIndexUpdatedEvent.value = Event(0)
-                else -> reorderChatRooms()
-            }
+        override fun onMessagesReceived(
+            core: Core,
+            chatRoom: ChatRoom,
+            messages: Array<out ChatMessage>
+        ) {
+            onChatRoomMessageEvent(chatRoom)
         }
 
         override fun onChatRoomRead(core: Core, chatRoom: ChatRoom) {
@@ -93,7 +89,7 @@ class ChatRoomsListViewModel : MessageNotifierViewModel() {
     }
 
     private val contactsListener = object : ContactsUpdatedListenerStub() {
-        override fun onContactUpdated(friend: Friend) {
+        override fun onContactsUpdated() {
             updateChatRooms()
         }
     }
@@ -101,6 +97,7 @@ class ChatRoomsListViewModel : MessageNotifierViewModel() {
     private var chatRoomsToDeleteCount = 0
 
     init {
+        groupChatAvailable.value = LinphoneUtils.isGroupChatAvailable()
         updateChatRooms()
         coreContext.core.addListener(listener)
         coreContext.contactsManager.addListener(contactsListener)
@@ -167,5 +164,13 @@ class ChatRoomsListViewModel : MessageNotifierViewModel() {
             }
         }
         return -1
+    }
+
+    private fun onChatRoomMessageEvent(chatRoom: ChatRoom) {
+        when (findChatRoomIndex(chatRoom)) {
+            -1 -> updateChatRooms()
+            0 -> chatRoomIndexUpdatedEvent.value = Event(0)
+            else -> reorderChatRooms()
+        }
     }
 }

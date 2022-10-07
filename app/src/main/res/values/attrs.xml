@@ -33,6 +33,7 @@
 
         <attr name="voipBackgroundColor" format="color" />
         <attr name="voipBackgroundBWColor" format="color" />
+        <attr name="voipMeParticipantBackgroundColor" format="color" />
         <attr name="voipParticipantBackgroundColor" format="color" />
         <attr name="voipExtraButtonsBackgroundColor" format="color" />
         <attr name="voipToolbarBackgroundColor" format="color" />
@@ -45,6 +46,7 @@
         <attr name="voipFormBackgroundColor" format="color" />
         <attr name="voipFormFieldBackgroundColor" format="color" />
         <attr name="voipFormDisabledFieldBackgroundColor" format="color" />
+        <attr name="voipCancelledMeetingBackgroundColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="Settings">

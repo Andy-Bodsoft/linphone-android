@@ -208,6 +208,7 @@ class DialerFragment : SecureFragment<DialerFragmentBinding>() {
         viewModel.enteredUri.value = sharedViewModel.dialerUri
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -217,8 +218,10 @@ class DialerFragment : SecureFragment<DialerFragmentBinding>() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.i("[Dialer] READ_PHONE_STATE permission has been granted")
                 coreContext.initPhoneStateListener()
+                // If first permission has been granted, continue to ask for permissions,
+                // otherwise don't do it or it will loop indefinitely
+                checkPermissions()
             }
-            checkPermissions()
         } else if (requestCode == 1) {
             var allGranted = true
             for (result in grantResults) {

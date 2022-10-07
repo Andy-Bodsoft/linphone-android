@@ -16,6 +16,8 @@ auto_answer_replacing_calls=1
 ping_with_options=0
 use_cpim=1
 zrtp_key_agreements_suites=MS_ZRTP_KEY_AGREEMENT_K255_KYB512
+chat_messages_aggregation_delay=1000
+chat_messages_aggregation=1
 
 [sound]
 #remove this property for any application that is not Linphone public version itself
@@ -35,6 +37,7 @@ notify_each_friend_individually_when_presence_received=0
 [app]
 activation_code_length=4
 prefer_basic_chat_room=1
+record_aware=1
 
 [assistant]
 xmlrpc_url=https://subscribe.linphone.org:444/wizard.php

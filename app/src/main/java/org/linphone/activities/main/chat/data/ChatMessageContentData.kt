@@ -59,6 +59,8 @@ class ChatMessageContentData(
     val isGenericFile = MutableLiveData<Boolean>()
     val isVoiceRecording = MutableLiveData<Boolean>()
     val isConferenceSchedule = MutableLiveData<Boolean>()
+    val isConferenceUpdated = MutableLiveData<Boolean>()
+    val isConferenceCancelled = MutableLiveData<Boolean>()
 
     val fileName = MutableLiveData<String>()
     val filePath = MutableLiveData<String>()
@@ -174,22 +176,27 @@ class ChatMessageContentData(
 
         val content = getContent()
         val filePath = content.filePath
-        if (content.isFileTransfer && (filePath == null || filePath.isEmpty())) {
-            val contentName = content.name
-            if (contentName != null) {
-                val file = FileUtils.getFileStoragePath(contentName)
-                content.filePath = file.path
-                downloadEnabled.value = false
-
-                Log.i("[Content] Started downloading $contentName into ${content.filePath}")
-                if (!chatMessage.downloadContent(content)) {
-                    Log.e("[Content] Failed to start content download!")
+        if (content.isFileTransfer) {
+            if (filePath == null || filePath.isEmpty()) {
+                val contentName = content.name
+                if (contentName != null) {
+                    val file = FileUtils.getFileStoragePath(contentName)
+                    content.filePath = file.path
+                    Log.i("[Content] Started downloading $contentName into ${content.filePath}")
+                } else {
+                    Log.e("[Content] Content name is null, can't download it!")
+                    return
                 }
             } else {
-                Log.e("[Content] Content name is null, can't download it!")
+                Log.w("[Content] File path already set [$filePath] using it (auto download that failed probably)")
+            }
+
+            downloadEnabled.value = false
+            if (!chatMessage.downloadContent(content)) {
+                Log.e("[Content] Failed to start content download!")
             }
         } else {
-            Log.e("[Content] Either content is not a FileTransfer or it's filePath has already been set, can't download it anyway!")
+            Log.e("[Content] Content is not a FileTransfer, can't download it!")
         }
     }
 
@@ -233,6 +240,8 @@ class ChatMessageContentData(
         isPdf.value = false
         isVoiceRecording.value = false
         isConferenceSchedule.value = false
+        isConferenceUpdated.value = false
+        isConferenceCancelled.value = false
 
         if (content.isFile || (content.isFileTransfer && chatMessage.isOutgoing)) {
             val path = if (isFileEncrypted) {
@@ -308,6 +317,10 @@ class ChatMessageContentData(
             conferenceSubject.value = conferenceInfo.subject
             conferenceDescription.value = conferenceInfo.description
 
+            val state = conferenceInfo.state
+            isConferenceUpdated.value = state == ConferenceInfo.State.Updated
+            isConferenceCancelled.value = state == ConferenceInfo.State.Cancelled
+
             conferenceDate.value = TimestampUtils.dateToString(conferenceInfo.dateTime)
             conferenceTime.value = TimestampUtils.timeToString(conferenceInfo.dateTime)
 
@@ -371,7 +384,9 @@ class ChatMessageContentData(
         voiceRecordingPlayer.start()
         isVoiceRecordPlaying.value = true
         tickerFlow().onEach {
-            voiceRecordPlayingPosition.postValue(voiceRecordingPlayer.currentPosition)
+            withContext(Dispatchers.Main) {
+                voiceRecordPlayingPosition.value = voiceRecordingPlayer.currentPosition
+            }
         }.launchIn(scope)
     }
 
@@ -457,6 +472,8 @@ interface OnContentClickedListener {
     fun onContentClicked(content: Content)
 
     fun onSipAddressClicked(sipUri: String)
+
+    fun onWebUrlClicked(url: String)
 
     fun onCallConference(address: String, subject: String?)
 

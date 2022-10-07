@@ -22,7 +22,8 @@
         android:background="@color/voip_translucent_popup_background"
         android:focusable="true"
         android:clickable="true"
-        android:visibility="@{inflatedVisibility}">
+        android:visibility="@{inflatedVisibility}"
+        inflatedLifecycleOwner="@{true}">
 
         <View
             android:id="@+id/background"

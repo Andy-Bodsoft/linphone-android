@@ -169,7 +169,7 @@
     <string name="conference_admin_set">%s הוא מנהל</string>
     <string name="conference_admin_unset">%s כבר לא מנהל</string>
     <string name="conference_schedule_info_created">ועידה תוזמנה</string>
-    <string name="conference_info_confirm_removal">האם ברצונך למחוק ועידה זו\?</string>
+    <string name="conference_scheduled_delete_one_dialog">האם ברצונך למחוק ועידה זו\?</string>
     <string name="conference_info_removed">מידע אודות הועידה נמחק</string>
     <string name="conference_invitation">הזמנה לועידה</string>
     <string name="conference_low_bandwidth">רוחב פס נמוך,מבטל וידאו</string>
@@ -298,6 +298,6 @@
     <string name="assistant_privacy_policy">מדיניות פרטיות</string>
     <string name="assistant_generic_account_warning_continue_button_text">אני מסכים</string>
     <string name="assistant_error_username_invalid_characters">נמצאו תווים לא חוקיים</string>
-    <string name="notification_channel_service_name">&amp;appName; service notification</string>
+    <string name="notification_channel_service_name">&appName; service notification</string>
     <string name="notification_channel_missed_call_name">שיחה שלא נענתה</string>
 </resources>

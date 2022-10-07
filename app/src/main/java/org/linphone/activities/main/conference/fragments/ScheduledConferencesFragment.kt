@@ -25,25 +25,27 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.linphone.R
-import org.linphone.activities.GenericFragment
 import org.linphone.activities.main.MainActivity
 import org.linphone.activities.main.conference.adapters.ScheduledConferencesAdapter
+import org.linphone.activities.main.conference.data.ScheduledConferenceData
 import org.linphone.activities.main.conference.viewmodels.ScheduledConferencesViewModel
+import org.linphone.activities.main.fragments.MasterFragment
 import org.linphone.activities.main.viewmodels.DialogViewModel
 import org.linphone.activities.navigateToConferenceScheduling
 import org.linphone.activities.navigateToConferenceWaitingRoom
+import org.linphone.core.tools.Log
 import org.linphone.databinding.ConferencesScheduledFragmentBinding
-import org.linphone.utils.AppUtils
-import org.linphone.utils.DialogUtils
-import org.linphone.utils.Event
-import org.linphone.utils.RecyclerViewHeaderDecoration
+import org.linphone.utils.*
 
-class ScheduledConferencesFragment : GenericFragment<ConferencesScheduledFragmentBinding>() {
-    private lateinit var viewModel: ScheduledConferencesViewModel
-    private lateinit var adapter: ScheduledConferencesAdapter
+class ScheduledConferencesFragment : MasterFragment<ConferencesScheduledFragmentBinding, ScheduledConferencesAdapter>() {
+    override val dialogConfirmationMessageBeforeRemoval = R.plurals.conference_scheduled_delete_dialog
+    private lateinit var listViewModel: ScheduledConferencesViewModel
 
     override fun getLayoutId(): Int = R.layout.conferences_scheduled_fragment
 
@@ -54,24 +56,47 @@ class ScheduledConferencesFragment : GenericFragment<ConferencesScheduledFragmen
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel = ViewModelProvider(
+        listViewModel = ViewModelProvider(
             this
         )[ScheduledConferencesViewModel::class.java]
-        binding.viewModel = viewModel
+        binding.viewModel = listViewModel
 
-        adapter = ScheduledConferencesAdapter(
-            viewLifecycleOwner
-        )
+        _adapter = ScheduledConferencesAdapter(listSelectionViewModel, viewLifecycleOwner)
         binding.conferenceInfoList.adapter = adapter
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.conferenceInfoList.layoutManager = layoutManager
 
+        // Swipe action
+        val swipeConfiguration = RecyclerViewSwipeConfiguration()
+        val white = ContextCompat.getColor(requireContext(), R.color.white_color)
+
+        swipeConfiguration.rightToLeftAction = RecyclerViewSwipeConfiguration.Action(
+            requireContext().getString(R.string.dialog_delete),
+            white,
+            ContextCompat.getColor(requireContext(), R.color.red_color)
+        )
+        val swipeListener = object : RecyclerViewSwipeListener {
+            override fun onLeftToRightSwipe(viewHolder: RecyclerView.ViewHolder) {}
+
+            override fun onRightToLeftSwipe(viewHolder: RecyclerView.ViewHolder) {
+                val index = viewHolder.bindingAdapterPosition
+                if (index < 0 || index >= adapter.currentList.size) {
+                    Log.e("[Scheduled Conferences] Index is out of bound, can't delete conference info")
+                } else {
+                    val deletedConfInfo = adapter.currentList[index]
+                    showConfInfoDeleteConfirmationDialog(deletedConfInfo, index)
+                }
+            }
+        }
+        RecyclerViewSwipeUtils(ItemTouchHelper.LEFT, swipeConfiguration, swipeListener)
+            .attachToRecyclerView(binding.conferenceInfoList)
+
         // Displays date header
         val headerItemDecoration = RecyclerViewHeaderDecoration(requireContext(), adapter)
         binding.conferenceInfoList.addItemDecoration(headerItemDecoration)
 
-        viewModel.conferences.observe(
+        listViewModel.conferences.observe(
             viewLifecycleOwner
         ) {
             adapter.submitList(it)
@@ -102,7 +127,7 @@ class ScheduledConferencesFragment : GenericFragment<ConferencesScheduledFragmen
             viewLifecycleOwner
         ) {
             it.consume { address ->
-                sharedViewModel.conferenceInfoToEdit.value = Event(address)
+                sharedViewModel.addressOfConferenceInfoToEdit.value = Event(address)
                 navigateToConferenceScheduling()
             }
         }
@@ -111,33 +136,49 @@ class ScheduledConferencesFragment : GenericFragment<ConferencesScheduledFragmen
             viewLifecycleOwner
         ) {
             it.consume { data ->
-                val dialogViewModel =
-                    DialogViewModel(AppUtils.getString(R.string.conference_info_confirm_removal))
-                deleteConferenceInfoDialog =
-                    DialogUtils.getVoipDialog(requireContext(), dialogViewModel)
-
-                dialogViewModel.showCancelButton(
-                    {
-                        deleteConferenceInfoDialog?.dismiss()
-                    },
-                    getString(R.string.dialog_cancel)
-                )
-
-                dialogViewModel.showDeleteButton(
-                    {
-                        viewModel.deleteConferenceInfo(data)
-                        deleteConferenceInfoDialog?.dismiss()
-                        (requireActivity() as MainActivity).showSnackBar(R.string.conference_info_removed)
-                    },
-                    getString(R.string.dialog_delete)
-                )
-
-                deleteConferenceInfoDialog?.show()
+                showConfInfoDeleteConfirmationDialog(data, -1)
             }
         }
 
         binding.setNewConferenceClickListener {
             navigateToConferenceScheduling()
         }
+    }
+
+    override fun deleteItems(indexesOfItemToDelete: ArrayList<Int>) {
+        val list = ArrayList<ScheduledConferenceData>()
+        for (index in indexesOfItemToDelete) {
+            val conferenceData = adapter.currentList[index]
+            list.add(conferenceData)
+        }
+        listViewModel.deleteConferencesInfo(list)
+    }
+
+    private fun showConfInfoDeleteConfirmationDialog(data: ScheduledConferenceData, index: Int) {
+        val dialogViewModel =
+            DialogViewModel(AppUtils.getString(R.string.conference_scheduled_delete_one_dialog))
+        deleteConferenceInfoDialog =
+            DialogUtils.getVoipDialog(requireContext(), dialogViewModel)
+
+        dialogViewModel.showCancelButton(
+            {
+                if (index != -1) {
+                    adapter.notifyItemChanged(index)
+                }
+                deleteConferenceInfoDialog?.dismiss()
+            },
+            getString(R.string.dialog_cancel)
+        )
+
+        dialogViewModel.showDeleteButton(
+            {
+                listViewModel.deleteConferenceInfo(data)
+                deleteConferenceInfoDialog?.dismiss()
+                (requireActivity() as MainActivity).showSnackBar(R.string.conference_info_removed)
+            },
+            getString(R.string.dialog_delete)
+        )
+
+        deleteConferenceInfoDialog?.show()
     }
 }

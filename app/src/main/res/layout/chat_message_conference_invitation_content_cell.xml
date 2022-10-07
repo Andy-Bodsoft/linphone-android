@@ -23,13 +23,29 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:background="@drawable/shape_conference_invite_background"
-        android:visibility="@{inflatedVisibility}">
+        android:visibility="@{inflatedVisibility}"
+        inflatedLifecycleOwner="@{true}">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/conference_invite_title_font"
-            android:text="@string/conference_invite_title"/>
+            android:text="@string/conference_invite_title"
+            android:visibility="@{data.isConferenceUpdated || data.isConferenceCancelled ? View.GONE : View.VISIBLE}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/conference_update_title_font"
+            android:text="@string/conference_update_title"
+            android:visibility="@{data.isConferenceUpdated ? View.VISIBLE : View.GONE, default=gone}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/conference_cancel_title_font"
+            android:text="@string/conference_cancel_title"
+            android:visibility="@{data.isConferenceCancelled ? View.VISIBLE : View.GONE, default=gone}"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,6 +129,7 @@
                 android:background="@drawable/button_green_background"
                 android:focusable="true"
                 android:focusedByDefault="true"
+                android:enabled="@{data.isOutgoing || !data.isConferenceCancelled}"
                 android:onClick="@{() -> data.callConferenceAddress()}"
                 android:paddingLeft="20dp"
                 android:paddingTop="8dp"

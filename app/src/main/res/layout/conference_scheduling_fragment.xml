@@ -48,7 +48,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 style="@style/calls_list_header_font"
-                android:text="@{viewModel.scheduleForLater ? @string/conference_schedule_title : @string/conference_group_call_title, default=@string/conference_group_call_title}"/>
+                android:text="@{viewModel.isUpdate ? @string/conference_schedule_edit : viewModel.scheduleForLater ? @string/conference_schedule_title : @string/conference_group_call_title, default=@string/conference_group_call_title}"/>
 
             <ImageView
                 android:focusable="true"
@@ -117,6 +117,7 @@
 
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:checked="@={viewModel.scheduleForLater}"
+                            android:enabled="@{!viewModel.isUpdate}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"/>
@@ -295,7 +296,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="@string/conference_schedule_send_invite_chat"
+                            android:text="@{viewModel.isUpdate ? @string/conference_schedule_send_updated_invite_chat : @string/conference_schedule_send_invite_chat, default=@string/conference_schedule_send_invite_chat}"
                             android:checked="@={viewModel.sendInviteViaChat, default=true}"
                             style="@style/conference_scheduling_font"/>
 
@@ -304,7 +305,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:visibility="gone"
-                            android:text="@string/conference_schedule_send_invite_email"
+                            android:text="@{viewModel.isUpdate ? @string/conference_schedule_send_updated_invite_email : @string/conference_schedule_send_invite_email, default=@string/conference_schedule_send_invite_email}"
                             android:checked="@={viewModel.sendInviteViaEmail}"
                             style="@style/conference_scheduling_font"/>
 

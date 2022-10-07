@@ -25,6 +25,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.linphone.LinphoneApplication.Companion.coreContext
+import org.linphone.LinphoneApplication.Companion.corePreferences
 import org.linphone.R
 import org.linphone.activities.main.MainActivity
 import org.linphone.activities.main.chat.viewmodels.ChatRoomCreationViewModel
@@ -35,6 +36,7 @@ import org.linphone.contact.ContactsSelectionAdapter
 import org.linphone.core.tools.Log
 import org.linphone.databinding.ChatRoomCreationFragmentBinding
 import org.linphone.utils.AppUtils
+import org.linphone.utils.LinphoneUtils
 import org.linphone.utils.PermissionHelper
 
 class ChatRoomCreationFragment : SecureFragment<ChatRoomCreationFragmentBinding>() {
@@ -148,12 +150,15 @@ class ChatRoomCreationFragment : SecureFragment<ChatRoomCreationFragmentBinding>
             }
         }
 
-        if (!PermissionHelper.get().hasReadContactsPermission()) {
-            Log.i("[Chat Room Creation] Asking for READ_CONTACTS permission")
-            requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), 0)
+        if (corePreferences.enableNativeAddressBookIntegration) {
+            if (!PermissionHelper.get().hasReadContactsPermission()) {
+                Log.i("[Chat Room Creation] Asking for READ_CONTACTS permission")
+                requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), 0)
+            }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -168,6 +173,12 @@ class ChatRoomCreationFragment : SecureFragment<ChatRoomCreationFragmentBinding>
                 Log.w("[Chat Room Creation] READ_CONTACTS permission denied")
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.secureChatAvailable.value = LinphoneUtils.isEndToEndEncryptedChatAvailable()
     }
 
     private fun addParticipantsFromSharedViewModel() {

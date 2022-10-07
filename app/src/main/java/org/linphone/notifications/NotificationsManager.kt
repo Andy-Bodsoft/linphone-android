@@ -139,11 +139,16 @@ class NotificationsManager(private val context: Context) {
             }
         }
 
-        override fun onMessageReceived(core: Core, room: ChatRoom, message: ChatMessage) {
-            if (message.isOutgoing || corePreferences.disableChat) return
+        override fun onMessagesReceived(
+            core: Core,
+            room: ChatRoom,
+            messages: Array<out ChatMessage>
+        ) {
+            Log.i("[Notifications Manager] Received ${messages.size} aggregated messages")
+            if (corePreferences.disableChat) return
 
             if (corePreferences.preventInterfaceFromShowingUp) {
-                Log.w("[Context] We were asked to not show the chat notifications")
+                Log.w("[Notifications Manager] We were asked to not show the chat notifications")
                 return
             }
 
@@ -160,24 +165,6 @@ class NotificationsManager(private val context: Context) {
                 return
             }
 
-            if (message.errorInfo.reason == Reason.UnsupportedContent) {
-                Log.w("[Notifications Manager] Received message with unsupported content, do not notify")
-                return
-            }
-
-            if (message.contents.find { content ->
-                content.isFile or content.isFileTransfer or content.isText
-            } == null
-            ) {
-                Log.w("[Notifications Manager] Received message with neither text or attachment, do not notify")
-                return
-            }
-
-            if (message.isRead) {
-                Log.w("[Notifications Manager] Received message is already marked as read, do not notify")
-                return
-            }
-
             if (corePreferences.chatRoomShortcuts) {
                 if (ShortcutsHelper.isShortcutToChatRoomAlreadyCreated(context, room)) {
                     Log.i("[Notifications Manager] Chat room shortcut already exists")
@@ -187,7 +174,12 @@ class NotificationsManager(private val context: Context) {
                 }
             }
 
-            displayIncomingChatNotification(room, message)
+            val notifiable = createChatNotifiable(room, messages)
+            if (notifiable.messages.isNotEmpty()) {
+                displayChatNotifiable(room, notifiable)
+            } else {
+                Log.w("[Notifications Manager] No message to display in received aggregated messages")
+            }
         }
 
         override fun onChatRoomRead(core: Core, chatRoom: ChatRoom) {
@@ -411,7 +403,13 @@ class NotificationsManager(private val context: Context) {
         }
     }
 
+    fun serviceCreated(createdService: CoreService) {
+        Log.i("[Notifications Manager] Service has been created, keeping it around")
+        service = createdService
+    }
+
     fun serviceDestroyed() {
+        Log.i("[Notifications Manager] Service has been destroyed")
         stopForegroundNotification()
         service = null
     }
@@ -655,7 +653,7 @@ class NotificationsManager(private val context: Context) {
         notify(notifiable.notificationId, notification, CHAT_TAG)
     }
 
-    private fun displayIncomingChatNotification(room: ChatRoom, message: ChatMessage) {
+    private fun createChatNotifiable(room: ChatRoom, message: ChatMessage): Notifiable {
         val notifiable = getNotifiableForRoom(room)
         if (notifiable.messages.isNotEmpty() || room.unreadMessagesCount == 1) {
             val friend = coreContext.contactsManager.findContactByAddress(message.fromAddress)
@@ -676,7 +674,27 @@ class NotificationsManager(private val context: Context) {
             notifiable.groupTitle = room.subject
         }
 
-        displayChatNotifiable(room, notifiable)
+        return notifiable
+    }
+
+    private fun createChatNotifiable(room: ChatRoom, messages: Array<out ChatMessage>): Notifiable {
+        val notifiable = getNotifiableForRoom(room)
+
+        for (message in messages) {
+            if (message.isRead || message.isOutgoing) continue
+            val friend = coreContext.contactsManager.findContactByAddress(message.fromAddress)
+            val notifiableMessage = getNotifiableMessage(message, friend)
+            notifiable.messages.add(notifiableMessage)
+        }
+
+        if (room.hasCapability(ChatRoomCapabilities.OneToOne.toInt())) {
+            notifiable.isGroup = false
+        } else {
+            notifiable.isGroup = true
+            notifiable.groupTitle = room.subject
+        }
+
+        return notifiable
     }
 
     private fun getNotifiableForRoom(room: ChatRoom): Notifiable {
@@ -839,6 +857,7 @@ class NotificationsManager(private val context: Context) {
             .build()
 
         val notificationBuilder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_chat_id))
+            .addPerson(lastPerson)
             .setSmallIcon(R.drawable.topbar_chat_notification)
             .setAutoCancel(true)
             .setLargeIcon(largeIcon)

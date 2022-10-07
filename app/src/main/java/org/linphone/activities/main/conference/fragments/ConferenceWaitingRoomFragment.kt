@@ -117,6 +117,14 @@ class ConferenceWaitingRoomFragment : GenericFragment<ConferenceWaitingRoomFragm
             }
         }
 
+        viewModel.networkNotReachableEvent.observe(
+            viewLifecycleOwner
+        ) {
+            it.consume {
+                (activity as MainActivity).showSnackBar(R.string.call_error_network_unreachable)
+            }
+        }
+
         checkPermissions()
     }
 
@@ -158,6 +166,7 @@ class ConferenceWaitingRoomFragment : GenericFragment<ConferenceWaitingRoomFragm
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

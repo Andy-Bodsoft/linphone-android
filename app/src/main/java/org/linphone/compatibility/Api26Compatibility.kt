@@ -34,6 +34,7 @@ import android.os.Vibrator
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.RemoteViews
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
@@ -228,7 +229,7 @@ class Api26Compatibility {
             channel: String,
             notificationsManager: NotificationsManager
         ): Notification {
-            val stringResourceId: Int
+            @StringRes val stringResourceId: Int
             val iconResourceId: Int
             val roundPicture: Bitmap?
             val title: String
@@ -339,11 +340,6 @@ class Api26Compatibility {
                 ),
                 code
             )
-        }
-
-        fun hasTelecomManagerPermission(context: Context): Boolean {
-            return Compatibility.hasPermission(context, Manifest.permission.READ_PHONE_STATE) &&
-                Compatibility.hasPermission(context, Manifest.permission.MANAGE_OWN_CALLS)
         }
 
         fun getImeFlagsForSecureChatRoom(): Int {

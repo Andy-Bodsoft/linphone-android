@@ -56,6 +56,7 @@
         <item name="voipBackgroundColor">@color/voip_gray_blue_color</item>
         <item name="voipBackgroundBWColor">@color/white_color</item>
         <item name="voipParticipantBackgroundColor">@color/voip_gray_background</item>
+        <item name="voipMeParticipantBackgroundColor">@color/voip_dark_color3</item>
         <item name="voipExtraButtonsBackgroundColor">@color/voip_gray</item>
         <item name="voipToolbarBackgroundColor">@color/toolbar_color</item>
         <item name="voipDrawableColor">@color/voip_dark_gray</item>
@@ -67,6 +68,7 @@
         <item name="voipFormBackgroundColor">@color/form_field_gray_background</item>
         <item name="voipFormFieldBackgroundColor">@color/light_grey_color</item>
         <item name="voipFormDisabledFieldBackgroundColor">@color/header_background_color</item>
+        <item name="voipCancelledMeetingBackgroundColor">@color/voip_conference_cancelled_bg_color_light</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme" />
@@ -152,6 +154,18 @@
     <style name="conference_invite_title_font" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">?attr/lightToolbarTextColor</item>
         <item name="android:textColorHighlight">?attr/primaryTextColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="conference_update_title_font" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/voip_conference_updated_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="conference_cancel_title_font" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/voip_conference_cancelled_title_color</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
     </style>

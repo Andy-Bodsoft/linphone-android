@@ -104,10 +104,10 @@ class LinphoneUtils {
             }
         }
 
-        fun isLimeAvailable(): Boolean {
+        fun isEndToEndEncryptedChatAvailable(): Boolean {
             val core = coreContext.core
-            return core.limeX3DhAvailable() && core.isLimeX3DhEnabled &&
-                core.limeX3DhServerUrl != null &&
+            return core.isLimeX3DhEnabled &&
+                (core.limeX3DhServerUrl != null || core.defaultAccount?.params?.limeServerUrl != null) &&
                 core.defaultAccount?.params?.conferenceFactoryUri != null
         }
 
@@ -118,7 +118,7 @@ class LinphoneUtils {
 
         fun isRemoteConferencingAvailable(): Boolean {
             val core = coreContext.core
-            return core.defaultAccount?.params?.audioVideoConferenceFactoryAddress != null || core.defaultAccount?.params?.conferenceFactoryUri != null
+            return core.defaultAccount?.params?.audioVideoConferenceFactoryAddress != null
         }
 
         fun createOneToOneChatRoom(participant: Address, isSecured: Boolean = false): ChatRoom? {
@@ -138,6 +138,20 @@ class LinphoneUtils {
 
             return core.searchChatRoom(params, defaultAccount?.params?.identityAddress, null, participants)
                 ?: core.createChatRoom(params, defaultAccount?.params?.identityAddress, participants)
+        }
+
+        fun getConferenceInvitationsChatRoomParams(): ChatRoomParams {
+            val chatRoomParams = coreContext.core.createDefaultChatRoomParams()
+            chatRoomParams.isGroupEnabled = false
+            if (isEndToEndEncryptedChatAvailable()) {
+                chatRoomParams.backend = ChatRoomBackend.FlexisipChat
+                chatRoomParams.isEncryptionEnabled = true
+            } else {
+                chatRoomParams.backend = ChatRoomBackend.Basic
+                chatRoomParams.isEncryptionEnabled = false
+            }
+            chatRoomParams.subject = "Meeting invitation" // Won't be used
+            return chatRoomParams
         }
 
         fun deleteFilesAttachedToEventLog(eventLog: EventLog) {

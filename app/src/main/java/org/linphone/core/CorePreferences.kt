@@ -439,6 +439,9 @@ class CorePreferences constructor(private val context: Context) {
     val allowMultipleFilesAndTextInSameMessage: Boolean
         get() = config.getBool("app", "allow_multiple_files_and_text_in_same_message", true)
 
+    val enableNativeAddressBookIntegration: Boolean
+        get() = config.getBool("app", "enable_native_address_book", true)
+
     val fetchContactsFromDefaultDirectory: Boolean
         get() = config.getBool("app", "fetch_contacts_from_default_directory", true)
 
@@ -456,6 +459,9 @@ class CorePreferences constructor(private val context: Context) {
     // Will disable chat feature completely
     val disableChat: Boolean
         get() = config.getBool("app", "disable_chat_feature", false)
+
+    val forceEndToEndEncryptedChat: Boolean
+        get() = config.getBool("app", "force_lime_chat_rooms", false)
 
     // This will prevent UI from showing up, except for the launcher & the foreground service notification
     val preventInterfaceFromShowingUp: Boolean
@@ -488,9 +494,6 @@ class CorePreferences constructor(private val context: Context) {
     val defaultRlsUri: String
         get() = config.getString("sip", "rls_uri", "sips:rls@sip.linphone.org")!!
 
-    val defaultLimeServerUrl: String
-        get() = config.getString("lime", "lime_server_url", "https://lime.linphone.org/lime-server/lime-server.php")!!
-
     val debugPopupCode: String
         get() = config.getString("app", "debug_popup_magic", "#1234#")!!
 
@@ -509,7 +512,7 @@ class CorePreferences constructor(private val context: Context) {
         get() = config.getString(
             "app",
             "default_audio_video_conference_factory_uri",
-            "sip:videoconference-factory2@sip.linphone.org"
+            "sip:videoconference-factory@sip.linphone.org"
         )!!
 
     val checkUpdateAvailableInterval: Int

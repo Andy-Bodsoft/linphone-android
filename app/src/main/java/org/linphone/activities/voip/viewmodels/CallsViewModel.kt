@@ -77,7 +77,11 @@ class CallsViewModel : ViewModel() {
             updateUnreadChatCount()
         }
 
-        override fun onMessageReceived(core: Core, chatRoom: ChatRoom, message: ChatMessage) {
+        override fun onMessagesReceived(
+            core: Core,
+            chatRoom: ChatRoom,
+            messages: Array<out ChatMessage>
+        ) {
             updateUnreadChatCount()
         }
 
@@ -250,8 +254,9 @@ class CallsViewModel : ViewModel() {
     private fun updateCurrentCallData(currentCall: Call?) {
         var callToUse = currentCall
         if (currentCall == null) {
-            Log.w("[Calls] Current call is now null")
+            if (coreContext.core.callsNb == 1) return // There is only one call, most likely it is paused
 
+            Log.w("[Calls] Current call is now null")
             val firstCall = coreContext.core.calls.find { call ->
                 call.state != Call.State.Error && call.state != Call.State.End && call.state != Call.State.Released
             }
@@ -310,6 +315,7 @@ class CallsViewModel : ViewModel() {
 
     private fun updateInactiveCallsCount() {
         // TODO: handle local conference
-        inactiveCallsCount.value = coreContext.core.callsNb - 1
+        val callsNb = coreContext.core.callsNb
+        inactiveCallsCount.value = if (callsNb > 0) callsNb - 1 else 0
     }
 }

@@ -88,12 +88,15 @@ class ContactsSettingsFragment : GenericSettingFragment<SettingsContactsFragment
             }
         }
 
-        if (!PermissionHelper.required(requireContext()).hasReadContactsPermission()) {
-            Log.i("[Contacts Settings] Asking for READ_CONTACTS permission")
-            requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), 0)
+        if (corePreferences.enableNativeAddressBookIntegration) {
+            if (!PermissionHelper.required(requireContext()).hasReadContactsPermission()) {
+                Log.i("[Contacts Settings] Asking for READ_CONTACTS permission")
+                requestPermissions(arrayOf(android.Manifest.permission.READ_CONTACTS), 0)
+            }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

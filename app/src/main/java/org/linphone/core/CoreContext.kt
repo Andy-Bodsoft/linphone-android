@@ -148,6 +148,10 @@ class CoreContext(
             }
         }
 
+        override fun onPushNotificationReceived(core: Core, payload: String?) {
+            Log.i("[Context] Push notification received: $payload")
+        }
+
         override fun onCallStateChanged(
             core: Core,
             call: Call,
@@ -247,18 +251,13 @@ class CoreContext(
             }
         }
 
-        override fun onMessageReceived(core: Core, chatRoom: ChatRoom, message: ChatMessage) {
-            if (core.maxSizeForAutoDownloadIncomingFiles != -1) {
-                var hasFile = false
-                for (content in message.contents) {
-                    if (content.isFile) {
-                        hasFile = true
-                        break
-                    }
-                }
-                if (hasFile) {
-                    exportFilesInMessageToMediaStore(message)
-                }
+        override fun onMessagesReceived(
+            core: Core,
+            chatRoom: ChatRoom,
+            messages: Array<out ChatMessage>
+        ) {
+            for (message in messages) {
+                exportFileInMessage(message)
             }
         }
     }
@@ -385,13 +384,25 @@ class CoreContext(
             core.isVibrationOnIncomingCallEnabled = true
             core.config.setBool("app", "incoming_call_vibration", false)
         }
+
         if (core.config.getInt("misc", "conference_layout", 1) > 1) {
             core.config.setInt("misc", "conference_layout", 1)
         }
 
-        if (!core.config.getBool("app", "conference_migration", false)) {
-            core.isRecordAwareEnabled = true
-            core.config.setBool("app", "conference_migration", true)
+        // Now LIME server URL is set on accounts
+        val limeServerUrl = core.limeX3DhServerUrl.orEmpty()
+        if (limeServerUrl.isNotEmpty()) {
+            Log.w("[Context] Removing LIME X3DH server URL from Core config")
+            core.limeX3DhServerUrl = null
+        }
+
+        // Disable Telecom Manager on Android < 10 to prevent crash due to OS bug in Android 9
+        if (Version.sdkStrictlyBelow(Version.API29_ANDROID_10)) {
+            if (corePreferences.useTelecomManager) {
+                Log.w("[Context] Android < 10 detected, disabling telecom manager to prevent crash due to OS bug")
+            }
+            corePreferences.useTelecomManager = false
+            corePreferences.manuallyDisabledTelecomManager = true
         }
 
         initUserCertificates()
@@ -438,6 +449,12 @@ class CoreContext(
                     Log.i("[Context] CPIM allowed in basic chat rooms for account ${params.identityAddress?.asString()}")
                 }
 
+                if (account.params.limeServerUrl == null && limeServerUrl.isNotEmpty()) {
+                    params.limeServerUrl = limeServerUrl
+                    paramsChanged = true
+                    Log.i("[Context] Moving Core's LIME X3DH server URL [$limeServerUrl] on account ${params.identityAddress?.asString()}")
+                }
+
                 if (paramsChanged) {
                     Log.i("[Context] Account params have been updated, apply changes")
                     account.params = params
@@ -471,10 +488,12 @@ class CoreContext(
     }
 
     fun fetchContacts() {
-        if (PermissionHelper.required(context).hasReadContactsPermission()) {
-            Log.i("[Context] Init contacts loader")
-            val manager = LoaderManager.getInstance(this@CoreContext)
-            manager.restartLoader(0, null, contactLoader)
+        if (corePreferences.enableNativeAddressBookIntegration) {
+            if (PermissionHelper.required(context).hasReadContactsPermission()) {
+                Log.i("[Context] Init contacts loader")
+                val manager = LoaderManager.getInstance(this@CoreContext)
+                manager.restartLoader(0, null, contactLoader)
+            }
         }
     }
 
@@ -488,10 +507,6 @@ class CoreContext(
                 for (friendList in core.friendsLists) {
                     friendList.rlsAddress = rlsAddress
                 }
-            }
-
-            if (core.limeX3DhAvailable()) {
-                core.limeX3DhServerUrl = corePreferences.defaultLimeServerUrl
             }
         } else {
             Log.i("[Context] Background mode with foreground service automatically enabled")
@@ -808,7 +823,22 @@ class CoreContext(
 
     /* Coroutine related */
 
-    fun exportFilesInMessageToMediaStore(message: ChatMessage) {
+    private fun exportFileInMessage(message: ChatMessage) {
+        if (core.maxSizeForAutoDownloadIncomingFiles != -1) {
+            var hasFile = false
+            for (content in message.contents) {
+                if (content.isFile) {
+                    hasFile = true
+                    break
+                }
+            }
+            if (hasFile) {
+                exportFilesInMessageToMediaStore(message)
+            }
+        }
+    }
+
+    private fun exportFilesInMessageToMediaStore(message: ChatMessage) {
         if (message.isEphemeral) {
             Log.w("[Context] Do not make ephemeral file(s) public")
             return

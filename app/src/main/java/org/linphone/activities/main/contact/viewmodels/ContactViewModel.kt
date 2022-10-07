@@ -204,7 +204,7 @@ class ContactViewModel(friend: Friend, async: Boolean = false) : MessageNotifier
             val presenceModel = friend.getPresenceModelForUriOrTel(value)
             val hasPresence = presenceModel?.basicStatus == PresenceBasicStatus.Open
             val isMe = coreContext.core.defaultAccount?.params?.identityAddress?.weakEqual(address) ?: false
-            val secureChatAllowed = LinphoneUtils.isLimeAvailable() && !isMe && friend.getPresenceModelForUriOrTel(value)?.hasCapability(FriendCapability.LimeX3Dh) ?: false
+            val secureChatAllowed = LinphoneUtils.isEndToEndEncryptedChatAvailable() && !isMe && friend.getPresenceModelForUriOrTel(value)?.hasCapability(FriendCapability.LimeX3Dh) ?: false
             val displayValue = if (coreContext.core.defaultAccount?.params?.domain == address.domain) (address.username ?: value) else value
             val noa = ContactNumberOrAddressData(address, hasPresence, displayValue, showSecureChat = secureChatAllowed, listener = listener)
             list.add(noa)
@@ -215,10 +215,10 @@ class ContactViewModel(friend: Friend, async: Boolean = false) : MessageNotifier
             val presenceModel = friend.getPresenceModelForUriOrTel(number)
             val hasPresence = presenceModel != null && presenceModel.basicStatus == PresenceBasicStatus.Open
             val contactAddress = presenceModel?.contact ?: number
-            val address = coreContext.core.interpretUrl(contactAddress, false)
+            val address = coreContext.core.interpretUrl(contactAddress, true)
             address?.displayName = displayName.value.orEmpty()
             val isMe = if (address != null) coreContext.core.defaultAccount?.params?.identityAddress?.weakEqual(address) ?: false else false
-            val secureChatAllowed = LinphoneUtils.isLimeAvailable() && !isMe && friend.getPresenceModelForUriOrTel(number)?.hasCapability(FriendCapability.LimeX3Dh) ?: false
+            val secureChatAllowed = LinphoneUtils.isEndToEndEncryptedChatAvailable() && !isMe && friend.getPresenceModelForUriOrTel(number)?.hasCapability(FriendCapability.LimeX3Dh) ?: false
             val label = PhoneNumberUtils.vcardParamStringToAddressBookLabel(coreContext.context.resources, phoneNumber.label ?: "")
             val noa = ContactNumberOrAddressData(address, hasPresence, number, isSip = false, showSecureChat = secureChatAllowed, typeLabel = label, listener = listener)
             list.add(noa)

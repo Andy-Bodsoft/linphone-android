@@ -67,6 +67,8 @@ abstract class GenericActivity : AppCompatActivity() {
 
         requestedOrientation = if (corePreferences.forcePortrait) {
             ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        } else if (corePreferences.forceLandscape) {
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         } else {
             ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         }

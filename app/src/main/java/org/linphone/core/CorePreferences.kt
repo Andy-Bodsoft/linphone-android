@@ -139,6 +139,11 @@ class CorePreferences constructor(private val context: Context) {
             config.setBool("app", "force_portrait_orientation", value)
         }
 
+    var forceLandscape: Boolean
+        get() = config.getBool("app", "force_landscape_orientation", false)
+        set(value) {
+            config.setBool("app", "force_portrait_orientation", value)
+        }
     var replaceSipUriByUsername: Boolean
         get() = config.getBool("app", "replace_sip_uri_by_username", false)
         set(value) {

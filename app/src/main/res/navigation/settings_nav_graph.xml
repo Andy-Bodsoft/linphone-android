@@ -9,6 +9,8 @@
         android:id="@+id/emptySettingsFragment"
         android:name="org.linphone.activities.main.fragments.EmptyFragment"
         tools:layout="@layout/empty_fragment"
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:label="EmptySettingsFragment" />
 
     <action android:id="@+id/action_global_emptySettingsFragment"
@@ -18,6 +20,8 @@
         android:id="@+id/accountSettingsFragment"
         android:name="org.linphone.activities.main.settings.fragments.AccountSettingsFragment"
         tools:layout="@layout/settings_account_fragment"
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:label="AccountSettingsFragment" >
         <argument
             android:name="Identity"
@@ -30,14 +34,20 @@
         android:id="@+id/advancedSettingsFragment"
         android:name="org.linphone.activities.main.settings.fragments.AdvancedSettingsFragment"
         tools:layout="@layout/settings_advanced_fragment"
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:label="AdvancedSettingsFragment" />
     <fragment
         android:id="@+id/audioSettingsFragment"
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:name="org.linphone.activities.main.settings.fragments.AudioSettingsFragment"
         tools:layout="@layout/settings_audio_fragment"
         android:label="AudioSettingsFragment" />
     <fragment
         android:id="@+id/callSettingsFragment"
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:name="org.linphone.activities.main.settings.fragments.CallSettingsFragment"
         tools:layout="@layout/settings_call_fragment"
         android:label="CallSettingsFragment" />

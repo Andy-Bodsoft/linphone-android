@@ -32,6 +32,7 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
                 android:visibility="@{sharedMainViewModel.isSlidingPaneSlideable ? View.VISIBLE : View.GONE}"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
@@ -47,6 +48,7 @@
                 android:layout_weight="0.6" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{newContactClickListener}"
                 android:visibility="@{viewModel.contact != null ? View.GONE : View.VISIBLE}"
                 android:contentDescription="@string/content_description_add_contact"
@@ -58,6 +60,7 @@
                 android:src="@drawable/contact_add" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{contactClickListener}"
                 android:visibility="@{viewModel.contact == null || viewModel.contact.refKey == null ? View.GONE : View.VISIBLE}"
                 android:contentDescription="@string/content_description_go_to_contact"
@@ -113,6 +116,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:focusable="true"
+                        android:focusedByDefault="true"
                         android:onClick="@{() -> viewModel.startCall()}"
                         android:contentDescription="@string/content_description_start_call"
                         android:layout_width="60dp"
@@ -122,6 +127,7 @@
                         android:src="@drawable/call_start_default" />
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.startChat(false)}"
                         android:visibility="@{viewModel.chatAllowed ? View.VISIBLE : View.GONE}"
                         android:contentDescription="@string/content_description_start_chat"
@@ -132,6 +138,7 @@
                         android:src="@drawable/chat_start_default" />
 
                     <RelativeLayout
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.startChat(true)}"
                         android:visibility="@{viewModel.chatAllowed &amp;&amp; viewModel.secureChatAllowed ? View.VISIBLE : View.GONE}"
                         android:layout_width="70dp"

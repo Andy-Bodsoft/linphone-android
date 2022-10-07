@@ -62,6 +62,8 @@
             android:layout_height="25dp"
             android:layout_margin="5dp"
             android:contentDescription="@string/content_description_switch_camera"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.switchCamera()}"
             android:src="@drawable/icon_call_camera_switch"
             android:visibility="@{data.videoEnabled &amp;&amp; data.isSwitchCameraAvailable() &amp;&amp; data.isInConference ? View.VISIBLE : View.GONE, default=gone}"

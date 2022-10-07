@@ -55,6 +55,8 @@
         </RelativeLayout>
 
         <ImageView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{removeClickListener}"
             android:visibility="@{data.showAdminControls ? View.VISIBLE : View.GONE}"
             android:contentDescription="@string/content_description_remove_contact_from_chat_room"
@@ -80,6 +82,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> data.unSetAdmin()}"
                 android:visibility="@{data.admin ? View.VISIBLE : View.GONE}">
 
@@ -108,6 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> data.setAdmin()}"
                 android:visibility="@{data.admin ? View.GONE : View.VISIBLE}">
 

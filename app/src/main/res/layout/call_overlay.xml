@@ -14,6 +14,7 @@
         android:visibility="@{visibility ? View.VISIBLE : View.GONE}">
 
         <ImageView
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_round_primary_color"

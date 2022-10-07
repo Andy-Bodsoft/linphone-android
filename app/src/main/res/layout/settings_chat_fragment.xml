@@ -27,6 +27,7 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
                 android:visibility="@{sharedMainViewModel.isSlidingPaneSlideable ? View.VISIBLE : View.GONE}"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
@@ -66,12 +67,14 @@
                 android:orientation="vertical">
 
                 <include
+                    android:focusable="true"
                     layout="@layout/settings_widget_switch"
                     linphone:title="@{@string/chat_settings_mark_as_read_notif_dismissal_title}"
                     linphone:listener="@{viewModel.markAsReadNotifDismissalListener}"
                     linphone:checked="@={viewModel.markAsReadNotifDismissal}"/>
 
                 <include
+                    android:focusable="true"
                     layout="@layout/settings_widget_list"
                     linphone:title="@{@string/chat_settings_auto_download_title}"
                     linphone:subtitle="@{@string/chat_settings_auto_download_summary}"
@@ -80,6 +83,7 @@
                     linphone:labels="@{viewModel.autoDownloadLabels}"/>
 
                 <include
+                    android:focusable="true"
                     layout="@layout/settings_widget_text"
                     linphone:title="@{@string/chat_settings_auto_download_max_size_title}"
                     linphone:subtitle="@{@string/chat_settings_auto_download_max_size_summary}"
@@ -91,12 +95,14 @@
 
                 <include
                     layout="@layout/settings_widget_switch"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_auto_download_voice_recordings}"
                     linphone:listener="@{viewModel.autoDownloadVoiceRecordingsListener}"
                     linphone:checked="@={viewModel.autoDownloadVoiceRecordings}"/>
 
                 <include
                     layout="@layout/settings_widget_switch"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_downloaded_media_public_title}"
                     linphone:enabled="@{!viewModel.vfs &amp;&amp; viewModel.autoDownloadIndex != 1}"
                     linphone:subtitle="@{@string/chat_settings_downloaded_media_public_summary}"
@@ -105,6 +111,7 @@
 
                 <include
                     layout="@layout/settings_widget_switch"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_use_in_app_file_viewer_title}"
                     linphone:subtitle="@{@string/chat_settings_use_in_app_file_viewer_summary}"
                     linphone:enabled="@{!viewModel.vfs}"
@@ -113,6 +120,7 @@
 
                 <include
                     layout="@layout/settings_widget_switch"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_hide_notification_content_title}"
                     linphone:subtitle="@{@string/chat_settings_hide_notification_content_summary}"
                     linphone:listener="@{viewModel.hideNotificationContentListener}"
@@ -121,6 +129,7 @@
                 <include
                     layout="@layout/settings_widget_switch"
                     android:visibility="gone"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_launcher_shortcuts_title}"
                     linphone:subtitle="@{@string/chat_settings_launcher_shortcuts_summary}"
                     linphone:listener="@{viewModel.launcherShortcutsListener}"
@@ -128,12 +137,14 @@
 
                 <include
                     layout="@layout/settings_widget_switch"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_hide_empty_rooms_title}"
                     linphone:listener="@{viewModel.hideEmptyRoomsListener}"
                     linphone:checked="@={viewModel.hideEmptyRooms}"/>
 
                 <include
                     layout="@layout/settings_widget_switch"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_hide_rooms_removed_proxies_title}"
                     linphone:subtitle="@{@string/chat_settings_hide_rooms_removed_proxies_summary}"
                     linphone:listener="@{viewModel.hideRoomsRemovedProxiesListener}"
@@ -141,6 +152,7 @@
 
                 <include
                     layout="@layout/settings_widget_text"
+                    android:focusable="true"
                     linphone:title="@{@string/chat_settings_file_sharing_url_title}"
                     linphone:subtitle="@{@string/chat_settings_file_sharing_url_summary}"
                     linphone:listener="@{viewModel.fileSharingUrlListener}"
@@ -149,6 +161,7 @@
 
                 <include
                     layout="@layout/settings_widget_basic"
+                    android:focusable="true"
                     linphone:listener="@{viewModel.goToAndroidNotificationSettingsListener}"
                     linphone:title="@{@string/chat_settings_go_to_android_notification_settings}" />
 

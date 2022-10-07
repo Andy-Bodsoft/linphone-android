@@ -30,6 +30,7 @@
 
             <ImageView
                 android:id="@+id/erase"
+                android:focusable="true"
                 android:onClick="@{() -> viewModel.eraseLastChar()}"
                 android:onLongClick="@{() -> viewModel.eraseAll()}"
                 android:contentDescription="@string/content_description_dialer_erase"
@@ -69,6 +70,7 @@
             android:layout_height="@dimen/main_activity_top_bar_size">
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{newConferenceClickListener}"
                 android:visibility="@{viewModel.scheduleConferenceAvailable ? View.VISIBLE : View.GONE}"
                 android:contentDescription="@string/content_description_create_conference"
@@ -80,6 +82,7 @@
                 android:src="@drawable/icon_video_conf_new" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{newContactClickListener}"
                 android:visibility="@{viewModel.scheduleConferenceAvailable ? View.GONE : View.VISIBLE, default=gone}"
                 android:enabled="@{viewModel.enteredUri.length() > 0}"
@@ -92,6 +95,7 @@
                 android:src="@drawable/contact_add" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{() -> viewModel.startCall()}"
                 android:visibility="@{viewModel.atLeastOneCall ? View.GONE : View.VISIBLE}"
                 android:contentDescription="@string/content_description_start_call"
@@ -103,6 +107,7 @@
                 android:src="@{viewModel.autoInitiateVideoCalls ? @drawable/call_video_start : @drawable/call_audio_start, default=@drawable/call_audio_start}" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{() -> viewModel.startCall()}"
                 android:visibility="@{viewModel.atLeastOneCall &amp;&amp; !viewModel.transferVisibility ? View.VISIBLE : View.GONE, default=gone}"
                 android:contentDescription="@string/content_description_add_call"
@@ -114,6 +119,7 @@
                 android:src="@drawable/call_add" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{transferCallClickListener}"
                 android:visibility="@{viewModel.atLeastOneCall &amp;&amp; viewModel.transferVisibility ? View.VISIBLE : View.GONE, default=gone}"
                 android:contentDescription="@string/content_description_transfer_call"

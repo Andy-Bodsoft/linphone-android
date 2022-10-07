@@ -65,6 +65,8 @@
 
         <ImageView
             android:id="@+id/clear_reply"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{cancelClickListener}"
             android:contentDescription="@string/content_description_cancel_reply"
             android:layout_width="30dp"

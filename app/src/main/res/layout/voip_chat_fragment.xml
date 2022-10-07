@@ -58,6 +58,7 @@
             </LinearLayout>
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{chatRoomsListClickListener}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -67,6 +68,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{cancelClickListener}"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -97,6 +99,7 @@
                 layout="@layout/chat_message_reply"
                 android:visibility="@{chatSendingViewModel.isPendingAnswer ? View.VISIBLE : View.GONE, default=gone}"
                 app:data="@{chatSendingViewModel.pendingChatMessageToReplyTo}"
+                android:focusable="true"
                 app:cancelClickListener="@{() -> chatSendingViewModel.cancelReply()}" />
 
             <HorizontalScrollView
@@ -127,6 +130,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/content_description_attach_file"
                     android:enabled="@{chatSendingViewModel.attachFileEnabled}"
+                    android:focusable="true"
                     android:onClick="@{attachFileClickListener}"
                     android:padding="10dp"
                     android:src="@drawable/chat_file" />
@@ -155,6 +159,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/content_description_send_message"
                     android:enabled="@{chatSendingViewModel.sendMessageEnabled}"
+                    android:focusable="true"
                     android:onClick="@{() -> chatSendingViewModel.sendMessage()}"
                     android:padding="10dp"
                     android:src="@drawable/chat_send_message" />

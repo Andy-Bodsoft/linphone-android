@@ -21,6 +21,8 @@
     </data>
 
     <RelativeLayout
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:onClick="@{clickListener}"
         android:onLongClick="@{longClickListener}"
         android:layout_width="match_parent"
@@ -60,6 +62,7 @@
                 android:visibility="@{viewModel.hasPresence() ? View.VISIBLE : View.GONE}" />
 
             <CheckBox
+                android:focusable="true"
                 android:onClick="@{() -> selectionListViewModel.onToggleSelect(position)}"
                 android:visibility="@{selectionListViewModel.isEditionEnabled &amp;&amp; viewModel.isNativeContact ? View.VISIBLE : View.GONE, default=gone}"
                 android:checked="@{selectionListViewModel.selectedItems.contains(position)}"

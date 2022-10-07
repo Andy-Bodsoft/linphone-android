@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/voip_translucent_popup_background"
+        android:focusable="true"
         android:clickable="true"
         android:visibility="@{inflatedVisibility}">
 
@@ -42,6 +43,8 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:contentDescription="@string/content_description_hide_statistics"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> controlsViewModel.hideCallStats()}"
             android:src="@drawable/icon_cancel_alt"
             app:layout_constraintEnd_toEndOf="@id/background"

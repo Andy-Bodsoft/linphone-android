@@ -4,6 +4,10 @@
         <bitmap android:src="@drawable/record_pause_default"
             android:tint="?attr/accentColor"/>
     </item>
+    <item android:state_focused="true">
+        <bitmap android:src="@drawable/record_pause_default"
+            android:tint="?attr/accentColor"/>
+    </item>
     <item>
         <bitmap android:src="@drawable/record_play_default"
             android:tint="?attr/accentColor"/>

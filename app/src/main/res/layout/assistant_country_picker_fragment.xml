@@ -54,6 +54,7 @@
 
             <ImageView
                 android:id="@+id/clear_field"
+                android:focusable="true"
                 android:onClick="@{() -> searchCountry.setText(``)}"
                 android:contentDescription="@string/content_description_clear_field"
                 android:layout_width="30dp"
@@ -76,6 +77,8 @@
             android:dividerHeight="1dp" />
 
         <TextView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{cancelClickListener}"
             style="@style/button_font"
             android:padding="10dp"

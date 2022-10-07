@@ -51,6 +51,8 @@
 
         <ImageView
             android:id="@+id/history"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{historyClickListener}"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -81,6 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/footer_button"
+            android:focusable="true"
             android:onClick="@{contactsClickListener}"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
             app:layout_constraintEnd_toEndOf="@id/guidelineMiddle">
@@ -100,6 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/footer_button"
+            android:focusable="true"
             android:onClick="@{dialerClickListener}"
             app:layout_constraintStart_toStartOf="@id/guidelineMiddle"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight">
@@ -116,6 +120,7 @@
 
         <ImageView
             android:id="@+id/chat"
+            android:focusable="true"
             android:onClick="@{chatClickListener}"
             android:layout_width="0dp"
             android:layout_height="match_parent"

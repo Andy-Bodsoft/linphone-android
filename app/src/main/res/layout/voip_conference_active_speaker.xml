@@ -37,6 +37,7 @@
             android:layout_marginTop="@{controlsViewModel.folded || controlsViewModel.fullScreenMode || controlsViewModel.pipMode ? @dimen/margin_0dp : conferenceViewModel.isRemotelyRecorded ? @dimen/voip_single_call_header_size_with_record_info : @dimen/voip_single_call_header_size, default=@dimen/voip_single_call_header_size}"/>
 
         <androidx.constraintlayout.widget.Guideline
+            android:focusable="true"
             android:id="@+id/hinge_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
             app:layout_constraintGuide_percent="0" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:focusable="true"
             android:id="@+id/hinge_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,6 +53,7 @@
             app:layout_constraintGuide_percent="1" />
 
         <androidx.constraintlayout.widget.Group
+            android:focusable="true"
             android:id="@+id/group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,6 +87,8 @@
             android:background="@drawable/button_toggle_background"
             android:contentDescription="@string/content_description_pause_call"
             android:enabled="@{!conferenceViewModel.conferenceCreationPending}"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> conferenceViewModel.pauseConference()}"
             android:padding="5dp"
             android:selected="@{conferenceViewModel.isConferenceLocallyPaused}"
@@ -99,6 +104,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/button_toggle_background"
             android:contentDescription="@string/content_description_toggle_recording"
+            android:focusable="true"
             android:onClick="@{() -> conferenceViewModel.toggleRecording()}"
             android:padding="7dp"
             android:selected="@{conferenceViewModel.isRecording}"
@@ -127,6 +133,7 @@
             app:layout_constraintBottom_toTopOf="@id/miniatures"
             android:layout_marginTop="@{controlsViewModel.fullScreenMode ? @dimen/margin_0dp : @dimen/voip_active_speaker_top_margin, default=@dimen/voip_active_speaker_top_margin}"
             android:background="@drawable/shape_remote_background"
+            android:focusable="true"
             android:onClick="@{() -> controlsViewModel.toggleFullScreen()}"/>
 
         <ImageView

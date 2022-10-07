@@ -27,6 +27,7 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
                 android:visibility="@{sharedMainViewModel.isSlidingPaneSlideable ? View.VISIBLE : View.GONE}"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"

@@ -39,6 +39,7 @@
         android:background="@color/white_color">
 
         <TextView
+            android:focusable="true"
             android:onClick="@{resumeClickListener}"
             android:visibility="@{hideResume ? View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
@@ -49,6 +50,7 @@
             android:text="@string/call_context_action_resume" />
 
         <TextView
+            android:focusable="true"
             android:onClick="@{pauseClickListener}"
             android:visibility="@{hidePause ? View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
@@ -59,6 +61,7 @@
             android:text="@string/call_context_action_pause" />
 
         <TextView
+            android:focusable="true"
             android:onClick="@{transferClickListener}"
             android:visibility="@{hideTransfer ? View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
@@ -69,6 +72,8 @@
             android:text="@string/call_context_action_transfer" />
 
         <TextView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{answerClickListener}"
             android:visibility="@{hideAccept? View.GONE : View.VISIBLE}"
             android:layout_width="match_parent"
@@ -79,6 +84,7 @@
             android:text="@string/call_context_action_answer" />
 
         <TextView
+            android:focusable="true"
             android:onClick="@{hangupClickListener}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/voip_call_context_menu_item_height"

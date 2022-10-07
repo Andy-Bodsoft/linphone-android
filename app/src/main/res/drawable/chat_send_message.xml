@@ -4,6 +4,10 @@
         <bitmap android:src="@drawable/chat_send_over"
             android:tint="?attr/drawableTintOverColor"/>
     </item>
+    <item android:state_focused="true">
+        <bitmap android:src="@drawable/chat_send_over"
+            android:tint="?attr/drawableTintOverColor"/>
+    </item>
     <item android:state_enabled="false">
         <bitmap android:src="@drawable/chat_send_over"
             android:tint="?attr/drawableTintDisabledColor"/>

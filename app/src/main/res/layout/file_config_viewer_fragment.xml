@@ -26,6 +26,7 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -40,6 +41,7 @@
                 android:layout_weight="0.6"/>
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{exportClickListener}"
                 android:contentDescription="@string/content_description_export"
                 android:layout_width="0dp"

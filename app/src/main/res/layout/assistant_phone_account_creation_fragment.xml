@@ -73,6 +73,7 @@
                         android:layout_height="wrap_content"/>
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{infoClickListener}"
                         android:contentDescription="@string/content_description_phone_number_use"
                         android:src="@drawable/info"
@@ -83,6 +84,8 @@
                     <TextView
                         android:id="@+id/select_country"
                         style="@style/button_font"
+                        android:focusable="true"
+                        android:focusedByDefault="true"
                         android:onClick="@{selectCountryClickListener}"
                         android:text="@{viewModel.countryName.length > 0 ? viewModel.countryName : @string/select_your_country}"
                         android:background="@drawable/resizable_assistant_button"
@@ -205,6 +208,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:focusable="true"
                     android:onClick="@{() ->viewModel.create()}"
                     android:enabled="@{viewModel.createEnabled, default=false}"
                     android:text="@string/assistant_create_account"

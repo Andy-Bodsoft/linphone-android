@@ -46,6 +46,7 @@
                     android:layout_weight="0.2">
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{allContactsToggleClickListener}"
                         android:enabled="@{viewModel.sipContactsSelected}"
                         android:contentDescription="@string/content_description_show_all_contacts"
@@ -70,6 +71,7 @@
                     android:layout_weight="0.2">
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{sipContactsToggleClickListener}"
                         android:enabled="@{!viewModel.sipContactsSelected}"
                         android:contentDescription="@string/content_description_show_sip_contacts"
@@ -95,6 +97,8 @@
                     android:layout_weight="0.2" />
 
                 <ImageView
+                    android:focusable="true"
+                    android:focusedByDefault="true"
                     android:onClick="@{newContactClickListener}"
                     android:contentDescription="@string/content_description_add_contact"
                     android:layout_width="0dp"
@@ -105,6 +109,7 @@
                     android:src="@drawable/contact_add" />
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{editClickListener}"
                     android:enabled="@{!viewModel.contactsList.empty}"
                     android:contentDescription="@string/content_description_enter_edition_mode"

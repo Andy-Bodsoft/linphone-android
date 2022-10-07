@@ -22,6 +22,7 @@
 
         <ImageView
             android:id="@+id/cancel_recording"
+            android:focusable="true"
             android:onClick="@{() -> viewModel.cancelVoiceRecording()}"
             android:contentDescription="@string/content_description_cancel_voice_recording"
             android:layout_width="30dp"
@@ -86,6 +87,8 @@
 
             <ImageView
                 android:visibility="@{viewModel.isVoiceRecording ? View.VISIBLE : View.GONE}"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.stopVoiceRecording()}"
                 android:contentDescription="@string/content_description_stop_voice_recording"
                 android:layout_width="30dp"
@@ -96,6 +99,8 @@
 
             <ImageView
                 android:visibility="@{!viewModel.isVoiceRecording &amp;&amp; !viewModel.isPlayingVoiceRecording ? View.VISIBLE : View.GONE, default=gone}"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.playRecordedMessage()}"
                 android:contentDescription="@string/content_description_play_voice_recording"
                 android:layout_width="30dp"
@@ -106,6 +111,8 @@
 
             <ImageView
                 android:visibility="@{!viewModel.isVoiceRecording &amp;&amp; viewModel.isPlayingVoiceRecording ? View.VISIBLE : View.GONE, default=gone}"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.pauseRecordedMessage()}"
                 android:contentDescription="@string/content_description_pause_voice_recording_playback"
                 android:layout_width="30dp"

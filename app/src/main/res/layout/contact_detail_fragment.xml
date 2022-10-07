@@ -32,6 +32,7 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
                 android:visibility="@{sharedMainViewModel.isSlidingPaneSlideable ? View.VISIBLE : View.GONE}"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
@@ -47,6 +48,8 @@
                 android:layout_weight="0.4" />
 
             <ImageView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{editClickListener}"
                 android:visibility="@{viewModel.isNativeContact ? View.VISIBLE : View.INVISIBLE}"
                 android:contentDescription="@string/content_description_edit_contact"
@@ -58,6 +61,7 @@
                 android:src="@drawable/edit" />
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{deleteClickListener}"
                 android:visibility="@{viewModel.isNativeContact ? View.VISIBLE : View.INVISIBLE}"
                 android:contentDescription="@string/content_description_delete_contact"

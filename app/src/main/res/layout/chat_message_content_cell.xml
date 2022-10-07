@@ -68,6 +68,8 @@
             android:layout="@layout/chat_message_generic_file_content_cell"
             android:visibility="@{data.audio || data.pdf || data.genericFile ? View.VISIBLE : View.GONE}"
             app:data="@{data}"
+            android:focusable="true"
+            android:focusedByDefault="true"
             app:longClickListener="@{longClickListener}"
             app:inflatedVisibility="@{data.audio || data.pdf || data.genericFile ? View.VISIBLE : View.GONE}" />
 

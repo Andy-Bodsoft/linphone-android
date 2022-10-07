@@ -22,6 +22,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:focusable="true"
         android:onClick="@{clickListener}"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -40,6 +41,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:adjustViewBounds="true"
             android:contentDescription="@string/content_description_recording_toggle_play"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{playListener}"
             android:padding="5dp"
             android:selected="@{data.isPlaying}"
@@ -47,6 +50,7 @@
 
         <CheckBox
             android:id="@+id/delete"
+            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:onClick="@{() -> selectionListViewModel.onToggleSelect(position)}"

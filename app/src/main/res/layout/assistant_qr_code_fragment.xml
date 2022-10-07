@@ -34,6 +34,8 @@
                 android:layout_centerInParent="true"/>
 
             <ImageView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.switchCamera()}"
                 android:visibility="@{viewModel.showSwitchCamera ? View.VISIBLE : View.GONE}"
                 android:contentDescription="@string/content_description_switch_camera"

@@ -41,6 +41,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:contentDescription="@string/content_description_go_back"
+                android:focusable="true"
                 android:padding="18dp"
                 android:src="@drawable/back"
                 android:visibility="@{sharedMainViewModel.isSlidingPaneSlideable ? View.VISIBLE : View.GONE}" />

@@ -10,6 +10,8 @@
     </data>
 
     <RelativeLayout
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:onClick="@{() -> data.setSelected()}"
         android:layout_width="match_parent"
         android:layout_height="60dp">

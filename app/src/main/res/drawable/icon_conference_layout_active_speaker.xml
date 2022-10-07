@@ -4,6 +4,10 @@
         <bitmap android:src="@drawable/voip_conference_active_speaker"
             android:tint="?attr/voipDrawablePressedColor"/>
     </item>
+    <item android:state_focused="true">
+        <bitmap android:src="@drawable/voip_conference_active_speaker"
+            android:tint="?attr/voipDrawablePressedColor"/>
+    </item>
     <item android:state_enabled="false">
         <bitmap android:src="@drawable/voip_conference_active_speaker"
             android:tint="?attr/voipDrawableDisabledColor"/>

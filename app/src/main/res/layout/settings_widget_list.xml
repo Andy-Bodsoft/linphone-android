@@ -66,6 +66,8 @@
             app:autoSizeStepGranularity="@dimen/settings_granularity_step"/>
 
         <Spinner
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:id="@+id/settings_spinner"
             android:entries="@{labels}"
             selectedIndex="@{selectedIndex}"

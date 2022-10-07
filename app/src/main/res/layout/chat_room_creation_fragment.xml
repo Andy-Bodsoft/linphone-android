@@ -33,6 +33,7 @@
             <ImageView
                 android:id="@+id/back"
                 android:contentDescription="@string/content_description_go_back"
+                android:focusable="true"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
@@ -52,6 +53,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{() -> viewModel.updateEncryption(false)}"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -69,6 +71,7 @@
                     android:textOn=""/>
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{() -> viewModel.updateEncryption(true)}"
                     android:contentDescription="@string/content_description_e2e_encryption_enabled"
                     android:layout_width="wrap_content"
@@ -84,6 +87,7 @@
                 android:layout_weight="1">
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{allContactsToggleClickListener}"
                     android:enabled="@{viewModel.sipContactsSelected}"
                     android:contentDescription="@string/content_description_show_all_contacts"
@@ -109,6 +113,7 @@
                 android:layout_weight="1">
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{sipContactsToggleClickListener}"
                     android:enabled="@{!viewModel.sipContactsSelected}"
                     android:contentDescription="@string/content_description_show_sip_contacts"
@@ -128,6 +133,8 @@
             </RelativeLayout>
 
             <ImageView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{nextClickListener}"
                 android:enabled="@{viewModel.selectedAddresses.size() > 0}"
                 android:visibility="@{viewModel.createGroupChat ? View.VISIBLE : View.GONE}"
@@ -162,6 +169,8 @@
             android:layout_alignTop="@id/searchBar"
             android:layout_alignRight="@id/searchBar"
             android:layout_alignBottom="@id/searchBar"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> viewModel.clearFilter()}"
             android:src="@drawable/field_clean" />
 

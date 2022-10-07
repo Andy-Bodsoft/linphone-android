@@ -35,6 +35,7 @@
 
             <ImageView
                 android:contentDescription="@string/content_description_close_bubble"
+                android:focusable="true"
                 android:onClick="@{closeBubbleClickListener}"
                 android:visibility="invisible"
                 android:layout_width="0dp"
@@ -72,6 +73,7 @@
             </LinearLayout>
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{openAppClickListener}"
                 android:contentDescription="@string/content_description_open_app"
                 android:layout_width="0dp"
@@ -119,6 +121,8 @@
 
                 <ImageView
                     android:id="@+id/send_message"
+                    android:focusable="true"
+                    android:focusedByDefault="true"
                     android:onClick="@{sendMessageClickListener}"
                     android:enabled="@{chatSendingViewModel.sendMessageEnabled &amp;&amp; !chatSendingViewModel.isReadOnly}"
                     android:contentDescription="@string/content_description_send_message"

@@ -4,6 +4,12 @@
 		android:drawable="@color/light_grey_color" />
 	<item android:state_enabled="false"
 		android:drawable="@color/toolbar_color" />
+	<item android:state_focused="false" android:state_hovered="true" android:state_pressed="false"
+		android:drawable="@color/light_grey_color" /> <!-- hovered -->
+	<item android:state_focused="true" android:state_pressed="false" android:state_selected="true"
+		android:drawable="@color/light_grey_color" />
+	<item android:state_focused="true"
+		android:drawable="@color/light_grey_color" /> <!-- focused -->
 	<item android:state_selected="true"
 		android:drawable="@color/toolbar_color" />
 	<item

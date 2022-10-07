@@ -32,6 +32,8 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -143,6 +145,7 @@
                     android:textColorLink="@color/primary_color" />
 
                 <TextView
+                    android:focusable="true"
                     android:onClick="@{privacyPolicyClickListener}"
                     style="@style/about_license_font"
                     android:layout_width="wrap_content"
@@ -155,6 +158,7 @@
                     android:textColorLink="@color/primary_color" />
 
                 <TextView
+                    android:focusable="true"
                     android:onClick="@{licenseClickListener}"
                     style="@style/about_license_font"
                     android:layout_width="wrap_content"
@@ -166,6 +170,7 @@
                     android:text="@string/about_text" />
 
                 <TextView
+                    android:focusable="true"
                     android:onClick="@{weblateClickListener}"
                     android:textColor="?attr/accentColor"
                     android:textSize="16sp"

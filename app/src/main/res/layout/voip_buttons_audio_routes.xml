@@ -23,6 +23,7 @@
         <ImageView
             android:id="@+id/bluetooth_audio_route"
             android:selected="@{controlsViewModel.isBluetoothHeadsetSelected}"
+            android:focusable="true"
             android:onClick="@{() -> controlsViewModel.forceBluetoothAudioRoute()}"
             android:contentDescription="@string/content_description_use_bluetooth_headset"
             android:layout_width="@dimen/voip_call_button_size"
@@ -34,6 +35,7 @@
         <ImageView
             android:id="@+id/earpiece_audio_route"
             android:selected="@{!controlsViewModel.isSpeakerSelected &amp;&amp; !controlsViewModel.isBluetoothHeadsetSelected}"
+            android:focusable="true"
             android:onClick="@{() -> controlsViewModel.forceEarpieceAudioRoute()}"
             android:contentDescription="@string/content_description_use_earpiece"
             android:layout_width="@dimen/voip_call_button_size"
@@ -45,6 +47,7 @@
         <ImageView
             android:id="@+id/speaker_audio_route"
             android:selected="@{controlsViewModel.isSpeakerSelected}"
+            android:focusable="true"
             android:onClick="@{() -> controlsViewModel.forceSpeakerAudioRoute()}"
             android:contentDescription="@string/content_description_use_speaker"
             android:layout_width="@dimen/voip_call_button_size"

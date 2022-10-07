@@ -44,6 +44,8 @@
                 android:text="@string/conference_schedule_participants_list"/>
 
             <ImageView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{applyClickListener}"
                 android:enabled="@{viewModel.selectedAddresses.size() > 0}"
                 android:contentDescription="@string/content_description_enter_edition_mode"

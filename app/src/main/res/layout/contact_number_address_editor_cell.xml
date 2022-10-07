@@ -34,6 +34,8 @@
 
         <ImageView
             android:id="@+id/delete"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.remove()}"
             android:contentDescription="@string/content_description_clear_field"
             android:layout_width="30dp"

@@ -4,6 +4,10 @@
         <bitmap android:src="@drawable/numpad_2"
             android:tint="?attr/accentColor"/>
     </item>
+    <item android:state_focused="true">
+        <bitmap android:src="@drawable/numpad_2"
+            android:tint="?attr/accentColor"/>
+    </item>
     <item>
         <bitmap android:src="@drawable/numpad_2"
             android:tint="?attr/drawableTintColor"/>

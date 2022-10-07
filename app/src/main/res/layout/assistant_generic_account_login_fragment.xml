@@ -136,6 +136,7 @@
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:checked="@{viewModel.transport == TransportType.Udp}"
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.setTransport(TransportType.Udp)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -145,6 +146,7 @@
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:checked="@{viewModel.transport == TransportType.Tcp}"
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.setTransport(TransportType.Tcp)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -154,6 +156,7 @@
 
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:checked="@{viewModel.transport == TransportType.Tls}"
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.setTransport(TransportType.Tls)}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -164,6 +167,8 @@
                 </RadioGroup>
 
                 <TextView
+                    android:focusable="true"
+                    android:focusedByDefault="true"
                     android:onClick="@{() -> viewModel.createProxyConfig()}"
                     android:enabled="@{viewModel.loginEnabled, default=false}"
                     android:text="@string/assistant_login"

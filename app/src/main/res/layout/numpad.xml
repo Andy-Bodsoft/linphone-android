@@ -23,6 +23,7 @@
             style="@style/numpad_digit"
             android:src="@drawable/numpad_one"
             android:contentDescription="@string/content_description_numpad_1"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('1')}"
             android:onLongClick="@{() -> keyListener.handleLongClick('1')}"  />
 
@@ -30,12 +31,14 @@
             style="@style/numpad_digit"
             android:contentDescription="@string/content_description_numpad_2"
             android:src="@drawable/numpad_two"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('2')}" />
 
         <ImageView
             style="@style/numpad_digit"
             android:contentDescription="@string/content_description_numpad_3"
             android:src="@drawable/numpad_three"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('3')}" />
 
         <ImageView
@@ -43,18 +46,21 @@
             app:layout_wrapBefore="true"
             android:src="@drawable/numpad_four"
             android:contentDescription="@string/content_description_numpad_4"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('4')}" />
 
         <ImageView
             style="@style/numpad_digit"
             android:src="@drawable/numpad_five"
             android:contentDescription="@string/content_description_numpad_5"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('5')}" />
 
         <ImageView
             style="@style/numpad_digit"
             android:src="@drawable/numpad_six"
             android:contentDescription="@string/content_description_numpad_6"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('6')}" />
 
         <ImageView
@@ -62,18 +68,21 @@
             app:layout_wrapBefore="true"
             android:src="@drawable/numpad_seven"
             android:contentDescription="@string/content_description_numpad_7"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('7')}" />
 
         <ImageView
             style="@style/numpad_digit"
             android:src="@drawable/numpad_eight"
             android:contentDescription="@string/content_description_numpad_8"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('8')}" />
 
         <ImageView
             style="@style/numpad_digit"
             android:src="@drawable/numpad_nine"
             android:contentDescription="@string/content_description_numpad_9"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('9')}" />
 
         <ImageView
@@ -81,11 +90,13 @@
             app:layout_wrapBefore="true"
             android:src="@drawable/numpad_star_digit"
             android:contentDescription="@string/content_description_numpad_star"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('*')}" />
 
         <ImageView
             style="@style/numpad_digit"
             android:src="@drawable/numpad_zero"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('0')}"
             android:contentDescription="@string/content_description_numpad_0"
             android:onLongClick="@{() -> keyListener.handleLongClick('+')}"/>
@@ -94,6 +105,7 @@
             style="@style/numpad_digit"
             android:src="@drawable/numpad_sharp"
             android:contentDescription="@string/content_description_numpad_sharp"
+            android:focusable="true"
             android:onClick="@{() -> keyListener.handleClick('#')}" />
 
     </com.google.android.flexbox.FlexboxLayout>

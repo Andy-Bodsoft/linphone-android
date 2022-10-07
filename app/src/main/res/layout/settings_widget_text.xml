@@ -31,6 +31,8 @@
 
         <ImageView
             android:id="@+id/settings_commit_input"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> settingsInput.fakeImeDone(listener)}"
             android:visibility="invisible"
             android:contentDescription="@string/content_description_confirm_contact_edit"

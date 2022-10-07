@@ -49,6 +49,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{cancelForwardClickListener}"
                     android:visibility="@{viewModel.forwardPending ? View.VISIBLE : View.GONE}"
                     android:contentDescription="@string/content_description_cancel_forward"
@@ -60,6 +61,7 @@
                     android:src="@drawable/cancel" />
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{cancelSharingClickListener}"
                     android:visibility="@{viewModel.fileSharingPending || viewModel.textSharingPending ? View.VISIBLE : View.GONE}"
                     android:contentDescription="@string/content_description_cancel_sharing"
@@ -71,6 +73,7 @@
                     android:src="@drawable/cancel" />
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{newOneToOneChatRoomClickListener}"
                     android:contentDescription="@string/content_description_create_one_to_one_chat_room"
                     android:layout_width="0dp"
@@ -82,6 +85,7 @@
 
                 <ImageView
                     android:visibility="@{viewModel.groupChatAvailable ? View.VISIBLE : View.GONE}"
+                    android:focusable="true"
                     android:onClick="@{newGroupChatRoomClickListener}"
                     android:contentDescription="@string/content_description_create_group_chat_room"
                     android:layout_width="0dp"
@@ -97,6 +101,8 @@
                     android:layout_weight="0.4" />
 
                 <ImageView
+                    android:focusable="true"
+                    android:focusedByDefault="true"
                     android:onClick="@{editClickListener}"
                     android:enabled="@{!viewModel.chatRooms.empty}"
                     android:visibility="@{viewModel.forwardPending || viewModel.fileSharingPending || viewModel.textSharingPending ? View.GONE : View.VISIBLE}"

@@ -67,6 +67,8 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.finish()}"
                 android:text="@string/assistant_finish"
                 android:background="@drawable/assistant_button"

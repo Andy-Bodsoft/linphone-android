@@ -16,6 +16,8 @@
         android:layout_height="60dp">
 
         <RelativeLayout
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{clickListener}"
             android:enabled="@{!data.isDisabled}"
             android:layout_width="match_parent"

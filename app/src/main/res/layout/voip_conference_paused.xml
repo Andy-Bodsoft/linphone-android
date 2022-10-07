@@ -30,6 +30,8 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/shape_orange_circle"
             android:contentDescription="@null"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> conferenceViewModel.resumeConference()}"
             android:padding="40dp"
             android:src="@drawable/voip_conference_play_big"

@@ -43,6 +43,8 @@
                         android:background="?attr/button_background_drawable"
                         android:contentDescription="@string/content_description_show_all_calls"
                         android:enabled="@{viewModel.filter != CallLogsFilter.ALL}"
+                        android:focusable="true"
+                        android:focusedByDefault="true"
                         android:onClick="@{() -> viewModel.showAllCallLogs()}"
                         android:padding="15dp"
                         android:src="@drawable/history_all" />
@@ -68,6 +70,7 @@
                         android:contentDescription="@string/content_description_show_missed_calls"
                         android:enabled="@{viewModel.filter != CallLogsFilter.MISSED}"
                         android:gravity="center"
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.showOnlyMissedCallLogs()}"
                         android:padding="15dp"
                         android:src="@drawable/history_missed" />
@@ -94,6 +97,7 @@
                         android:contentDescription="@string/content_description_show_missed_calls"
                         android:enabled="@{viewModel.filter != CallLogsFilter.CONFERENCE}"
                         android:gravity="center"
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.showOnlyConferenceCallLogs()}"
                         android:padding="8dp"
                         android:src="@drawable/icon_video_conf_new" />
@@ -113,6 +117,7 @@
                     android:layout_weight="0.2" />
 
                 <ImageView
+                    android:focusable="true"
                     android:onClick="@{editClickListener}"
                     android:enabled="@{!viewModel.callLogs.empty}"
                     android:contentDescription="@string/content_description_enter_edition_mode"

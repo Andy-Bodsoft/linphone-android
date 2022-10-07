@@ -45,6 +45,8 @@
             android:layout_marginRight="5dp"
             android:contentDescription="@string/content_description_play_voice_recording"
             android:background="@drawable/round_recording_button_background_dark"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.isVoiceRecordPlaying() ? data.pauseVoiceRecording() : data.playVoiceRecording()}"
             android:padding="9dp"
             android:src="@{data.isVoiceRecordPlaying() ? @drawable/record_pause_dark : @drawable/record_play_dark, default=@drawable/record_play_dark}" />

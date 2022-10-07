@@ -23,6 +23,8 @@
         android:visibility="@{inflatedVisibility}">
 
         <ImageView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.openFile()}"
             android:onLongClick="@{longClickListener}"
             android:contentDescription="@string/content_description_downloaded_file_transfer"

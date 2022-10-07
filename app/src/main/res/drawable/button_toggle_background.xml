@@ -2,6 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
         android:drawable="@drawable/shape_toggle_pressed_background" />
+    <item android:state_focused="true"
+        android:drawable="@drawable/shape_toggle_pressed_background" />
     <item android:state_selected="true"
         android:drawable="@drawable/shape_toggle_on_background" />
     <item android:state_enabled="false"

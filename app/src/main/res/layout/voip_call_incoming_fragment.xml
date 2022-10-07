@@ -196,6 +196,7 @@
         <include
             android:id="@+id/buttons"
             layout="@layout/voip_buttons_incoming"
+            android:focusable="true"
             android:layout_width="0dp"
             android:layout_height="@dimen/voip_buttons_fragment_size"
             android:layout_margin="10dp"

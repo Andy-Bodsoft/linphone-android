@@ -71,6 +71,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.fetchAndApply()}"
                 android:enabled="@{viewModel.fetchEnabled}"
                 android:text="@string/assistant_fetch_apply"
@@ -83,6 +85,7 @@
                 android:layout_marginTop="20dp"/>
 
             <TextView
+                android:focusable="true"
                 android:onClick="@{qrCodeClickListener}"
                 android:text="@string/assistant_launch_qrcode"
                 android:background="@drawable/assistant_button"

@@ -4,6 +4,12 @@
         android:drawable="@drawable/shape_button_pressed_background" />
     <item android:state_enabled="false"
         android:drawable="@drawable/shape_button_disabled_background" />
+    <item android:state_focused="false" android:state_hovered="true" android:state_pressed="false"
+        android:drawable="@drawable/shape_button_pressed_background" /> <!-- hovered -->
+    <item android:state_focused="true" android:state_pressed="false" android:state_selected="true"
+        android:drawable="@drawable/shape_button_pressed_background" />
+    <item android:state_focused="true"
+        android:drawable="@drawable/shape_button_pressed_background" /> <!-- focused -->
     <item
         android:drawable="@drawable/shape_button_background" />
 </selector>

@@ -26,6 +26,8 @@
 
         <ImageView
             android:id="@+id/delete"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.removeParticipantFromConference()}"
             android:visibility="@{data.isMeAdmin ? View.VISIBLE : View.INVISIBLE}"
             android:layout_width="40dp"
@@ -47,6 +49,7 @@
 
             <LinearLayout
                 android:id="@+id/isAdminLayout"
+                android:focusable="true"
                 android:onClick="@{() -> data.unsetAdmin()}"
                 android:visibility="@{data.isAdmin ? View.VISIBLE : View.GONE, default=gone}"
                 android:layout_width="wrap_content"
@@ -75,6 +78,7 @@
 
             <LinearLayout
                 android:id="@+id/isNotAdminLayout"
+                android:focusable="true"
                 android:onClick="@{() -> data.setAdmin()}"
                 android:visibility="@{(data.isAdmin || !data.isMeAdmin) ? View.GONE : View.VISIBLE}"
                 android:layout_width="wrap_content"

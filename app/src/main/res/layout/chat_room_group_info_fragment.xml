@@ -37,6 +37,7 @@
 
                 <ImageView
                     android:id="@+id/back"
+                    android:focusable="true"
                     android:contentDescription="@string/content_description_go_back"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -57,6 +58,8 @@
                     android:singleLine="true" />
 
                 <ImageView
+                    android:focusable="true"
+                    android:focusedByDefault="true"
                     android:onClick="@{nextClickListener}"
                     android:enabled="@{viewModel.isMeAdmin &amp;&amp; viewModel.participants.size() > 0 &amp;&amp; viewModel.subject.length() > 0}"
                     android:visibility="@{viewModel.meAdmin ? View.VISIBLE : View.INVISIBLE}"
@@ -96,6 +99,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:focusable="true"
                 android:onClick="@{participantsClickListener}"
                 android:enabled="@{viewModel.meAdmin}"
                 android:layout_width="match_parent"
@@ -138,6 +142,7 @@
         <TextView
             android:id="@+id/leave_group"
             android:visibility="@{viewModel.canLeaveGroup ? View.VISIBLE : View.GONE}"
+            android:focusable="true"
             android:onClick="@{leaveClickListener}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

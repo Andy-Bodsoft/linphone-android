@@ -81,6 +81,7 @@
                         android:layout_height="wrap_content"/>
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{infoClickListener}"
                         android:contentDescription="@string/content_description_phone_number_use"
                         android:src="@drawable/info"
@@ -91,6 +92,8 @@
                         android:layout_height="20dp"/>
 
                     <TextView
+                        android:focusable="true"
+                        android:focusedByDefault="true"
                         android:onClick="@{selectCountryClickListener}"
                         android:id="@+id/select_country"
                         style="@style/button_font"
@@ -205,6 +208,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
+                        android:focusable="true"
                         android:onClick="@{forgotPasswordClickListener}"
                         android:textColor="?attr/accentColor"
                         android:textSize="12sp"
@@ -255,6 +259,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:focusable="true"
                     android:onClick="@{() -> viewModel.login()}"
                     android:enabled="@{viewModel.loginEnabled, default=false}"
                     android:text="@string/assistant_login"

@@ -28,6 +28,8 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{cancelClickListener}"
             android:contentDescription="@string/content_description_exit_edition_mode"
             android:layout_width="0dp"
@@ -43,6 +45,7 @@
             android:layout_weight="0.4" />
 
         <ImageView
+            android:focusable="true"
             android:onClick="@{selectAllClickListener}"
             android:visibility="@{viewModel.isSelectionNotEmpty ? View.GONE : View.VISIBLE}"
             android:contentDescription="@string/content_description_select_all"
@@ -54,6 +57,7 @@
             android:src="@drawable/select_all" />
 
         <ImageView
+            android:focusable="true"
             android:onClick="@{unSelectAllClickListener}"
             android:visibility="@{viewModel.isSelectionNotEmpty ? View.VISIBLE : View.GONE}"
             android:contentDescription="@string/content_description_unselect_all"
@@ -65,6 +69,7 @@
             android:src="@drawable/deselect_all" />
 
         <ImageView
+            android:focusable="true"
             android:onClick="@{deleteClickListener}"
             android:enabled="@{viewModel.isSelectionNotEmpty}"
             android:contentDescription="@string/content_description_delete_selection"

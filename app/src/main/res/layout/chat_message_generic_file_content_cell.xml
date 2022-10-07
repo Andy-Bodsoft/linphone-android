@@ -32,6 +32,8 @@
             android:drawablePadding="5dp"
             android:ellipsize="middle"
             android:gravity="center"
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.openFile()}"
             android:onLongClick="@{longClickListener}"
             android:singleLine="true"

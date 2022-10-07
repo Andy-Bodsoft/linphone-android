@@ -76,6 +76,7 @@
             app:justifyContent="center">
 
             <TextView
+                android:focusable="true"
                 android:onClick="@{() -> viewModel.onCancelClicked()}"
                 style="@style/dialog_cancel_button_font"
                 android:layout_width="137dp"
@@ -89,6 +90,7 @@
                 android:visibility="@{viewModel.showCancel ? View.VISIBLE : View.GONE}" />
 
             <TextView
+                android:focusable="true"
                 android:onClick="@{() -> viewModel.onDeleteClicked()}"
                 style="@style/dialog_action_button_font"
                 android:layout_width="137dp"
@@ -103,6 +105,8 @@
                 android:visibility="@{viewModel.showDelete ? View.VISIBLE : View.GONE}" />
 
             <TextView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{() -> viewModel.onOkClicked()}"
                 style="@style/dialog_action_button_font"
                 android:layout_width="137dp"

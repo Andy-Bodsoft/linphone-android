@@ -19,6 +19,8 @@
         android:layout_marginRight="5dp">
 
         <ImageView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> parent.toggleSelectionForAddress(data)}"
             android:contentDescription="@string/content_description_remove_contact_from_selection"
             android:layout_width="wrap_content"

@@ -23,6 +23,8 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

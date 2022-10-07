@@ -32,6 +32,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:focusable="true"
                 android:id="@+id/back"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
@@ -50,6 +51,7 @@
                 android:text="@{viewModel.scheduleForLater ? @string/conference_schedule_title : @string/conference_group_call_title, default=@string/conference_group_call_title}"/>
 
             <ImageView
+                android:focusable="true"
                 android:onClick="@{nextClickListener}"
                 android:enabled="@{viewModel.continueEnabled, default=false}"
                 android:contentDescription="@string/content_description_enter_edition_mode"
@@ -120,6 +122,7 @@
                             android:layout_marginStart="10dp"/>
 
                         <TextView
+                            android:focusable="true"
                             android:onClick="@{() -> viewModel.toggleSchedule()}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -159,6 +162,7 @@
                                     app:drawableRightCompat="@drawable/voip_mandatory"/>
 
                                 <TextView
+                                    android:focusable="true"
                                     android:onClick="@{datePickerClickListener}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -220,6 +224,7 @@
                                     app:drawableRightCompat="@drawable/voip_mandatory"/>
 
                                 <TextView
+                                    android:focusable="true"
                                     android:onClick="@{timePickerClickListener}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -325,6 +330,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.updateEncryption(false)}"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -342,6 +348,7 @@
                         android:textOn=""/>
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{() -> viewModel.updateEncryption(true)}"
                         android:contentDescription="@string/content_description_e2e_encryption_enabled"
                         android:layout_width="wrap_content"

@@ -25,6 +25,7 @@
 
             <ImageView
                 android:id="@+id/back"
+                android:focusable="true"
                 android:contentDescription="@string/content_description_go_back"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -45,6 +46,8 @@
                 android:text="@string/chat_room_ephemeral_fragment_title" />
 
             <ImageView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{validClickListener}"
                 android:contentDescription="@string/content_description_ephemeral_duration_change"
                 android:layout_width="0dp"

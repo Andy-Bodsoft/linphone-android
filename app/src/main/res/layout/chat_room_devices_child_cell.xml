@@ -9,6 +9,8 @@
     </data>
 
     <RelativeLayout
+        android:focusable="true"
+        android:focusedByDefault="true"
         android:onClick="@{() -> data.onClick()}"
         android:layout_width="match_parent"
         android:layout_height="40dp"

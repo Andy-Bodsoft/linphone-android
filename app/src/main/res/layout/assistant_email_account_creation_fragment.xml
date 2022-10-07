@@ -144,6 +144,8 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:focusable="true"
+                    android:focusedByDefault="true"
                     android:onClick="@{() -> viewModel.create()}"
                     android:enabled="@{viewModel.createEnabled, default=false}"
                     android:text="@string/assistant_create_account"

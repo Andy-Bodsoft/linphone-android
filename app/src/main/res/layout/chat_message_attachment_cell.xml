@@ -73,6 +73,8 @@
         </LinearLayout>
 
         <ImageView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{() -> data.delete()}"
             android:contentDescription="@string/content_description_remove_pending_file_transfer"
             android:layout_width="20dp"

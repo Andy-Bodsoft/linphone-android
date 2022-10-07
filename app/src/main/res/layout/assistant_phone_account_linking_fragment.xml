@@ -88,6 +88,7 @@
                         android:layout_height="wrap_content"/>
 
                     <ImageView
+                        android:focusable="true"
                         android:onClick="@{infoClickListener}"
                         android:contentDescription="@string/content_description_phone_number_use"
                         android:src="@drawable/info"
@@ -97,6 +98,8 @@
 
                     <TextView
                         android:id="@+id/select_country"
+                        android:focusable="true"
+                        android:focusedByDefault="true"
                         android:onClick="@{selectCountryClickListener}"
                         android:text="@{viewModel.countryName.length > 0 ? viewModel.countryName : @string/select_your_country}"
                         style="@style/button_font"
@@ -157,6 +160,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:focusable="true"
                     android:onClick="@{() -> viewModel.link()}"
                     android:enabled="@{viewModel.linkEnabled, default=false}"
                     android:text="@string/assistant_link_account"
@@ -171,6 +175,7 @@
 
                 <TextView
                     android:visibility="@{viewModel.allowSkip ? View.VISIBLE : View.GONE}"
+                    android:focusable="true"
                     android:onClick="@{() -> viewModel.skip()}"
                     style="@style/standard_small_text_font"
                     android:layout_width="wrap_content"

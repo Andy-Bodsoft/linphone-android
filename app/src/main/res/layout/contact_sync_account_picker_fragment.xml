@@ -40,6 +40,8 @@
             android:dividerHeight="1dp" />
 
         <TextView
+            android:focusable="true"
+            android:focusedByDefault="true"
             android:onClick="@{localSyncAccountClickListener}"
             style="@style/button_font"
             android:padding="10dp"

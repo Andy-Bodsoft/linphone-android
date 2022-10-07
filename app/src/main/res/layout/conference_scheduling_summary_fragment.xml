@@ -31,6 +31,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:focusable="true"
                     android:id="@+id/back"
                     android:contentDescription="@string/content_description_go_back"
                     android:layout_width="0dp"
@@ -300,6 +301,8 @@
             </androidx.core.widget.NestedScrollView>
 
             <TextView
+                android:focusable="true"
+                android:focusedByDefault="true"
                 android:onClick="@{createConferenceClickListener}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
